@@ -1,3 +1,12 @@
+/**
+ * Preguntas para Cubells:
+ * 1. A que se refiere con "si el ultimo falla el sistema falla"?
+ * 2. Por "tiempo promedio de RB/RC" se refiere a que tanto tarde en recuperarse
+ *    o rebootearse?
+ * 3. El valor de x en el tercer parrafo es igual que el valor de c en el 
+ *    segundo?
+*/
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -49,7 +58,8 @@ int main(){
 
   for (int i = 0; i < n; i++)
   {
-    printf("Time of RC %f\n", p[i].TRb);
+    cout << "Time of RC: " << p[i].TRb << endl;
+    //printf("Time of RC %f\n", p[i].TRb);
   }
   
   return 0;
