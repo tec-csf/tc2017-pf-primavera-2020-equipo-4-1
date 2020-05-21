@@ -1,61 +1,52 @@
 #include <iostream>
-#include <tuple>
 #include <vector>
+#include <queue>
 #include <time.h>
 using namespace std;
 
-tuple<vector<vector<int>>, int> generarMatriz(int s)
+vector<vector<int>> generarMatriz(int n, int m)
 {
-    vector<vector<int>> vec(s, vector<int> (s,0));
-
-    for (int i = 0; i < s; i++)
+    vector<vector<int>> vec(n, vector<int> (m,0));
+    cout<<"filas: "<<vec.size()<<"\tcolumnas: "<<vec[0].size()<<endl;
+    for (int i = 0; i < n; i++)
     {
-        for(int j = 0; j < s; j++)
+        for(int j = 0; j < m; j++)
         {
-            vec[i][j] = rand() % 9 + 1;
+            vec[i][j] = rand() % 9;
         }
     }
-    for (int i = 0; i < s; i++) { 
-        for (int j = 0; j < s; j++){ 
+    for (int i = 0; i < n; i++) { 
+        for (int j = 0; j < m; j++){ 
             cout<< vec[i][j]<< " "; 
         } 
         cout<< "\n"; 
     }
     cout<< "\n"; 
 
-    return make_tuple(vec, s);
+    return vec;
 }
 
-void emparejar(vector<tuple<vector<vector<int>>,int>> lista)
+void emparejar(queue<vector<vector<int>>> lista)
 {
-    for (int i = 0; i < lista.size(); i++)
+    if (lista.front()[0].size()==lista.back().size())
     {
-        for (int j = i+1; j < lista.size(); j++)
-        {
-            cout<<get<1>(lista[i])<<" - "<<get<1>(lista[j])<<endl;
-            if(get<1>(lista[i])==get<1>(lista[j]))
-            {
-                cout<<"Se encontraron matrices compatibles"<<endl;
-                return;
-            }
-        }
+        cout<<"La primera y última matriz de la cola son compatibles"<<endl;
     }
-    cout<<"NO hay matrices compatibles"<<endl;
+    else
+    {
+        cout<<"NO hay matrices compatibles"<<endl;
+    }
 }
 
 int main()
 {
-    vector<tuple<   ,int>> list;
+    //vector<tuple<vector<vector<int>>,int>> list;
+    queue<vector<vector<int>>> list;
+
     srand(time(NULL));
-    list.push_back(generarMatriz(rand() % 4 + 2));
-    list.push_back(generarMatriz(rand() % 4 + 2));
-    list.push_back(generarMatriz(rand() % 4 + 2));
 
-
-    for (int i = 0; i < list.size(); i++)
-    {
-        cout<<get<1>(list[i])<<endl;
-    }
+    list.push(generarMatriz(rand() % 4 + 2,(rand() % 4 + 2)));
+    list.push(generarMatriz(rand() % 4 + 2,(rand() % 4 + 2)));
 
     emparejar(list);
 
