@@ -9,8 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$process = $_POST['process'];
 		$nuc = $_POST['nuc'];
 		$c = $_POST['c'];
-		$output = shell_exec("./pro $x $alfa $beta $delta $gamma $process $nuc $c");
-		echo "<h4>$output</h4>";
+		$output = shell_exec("cd ../../../../api; ./pro $x $alfa $beta $delta $gamma $process $nuc $c");
+		//echo "<h4>$output</h4>";
+		header( 'Location: ../simulation.html' ) ;
 	}else {
 		echo "<h4>FALTO UN DATO</h4>";
 	}
