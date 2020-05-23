@@ -54,7 +54,7 @@ void insert(processor *arr, int n, int cores, float alpha, float beta, float del
   int main(int argc, char *argv[] ){
     if (argc != 8)
     {
-        int n = atoi(argv[6]);
+    int n = atoi(argv[6]);
     int cores = atoi(argv[7]);
     float alpha = atoi(argv[2]);
     float beta = atoi(argv[3]);

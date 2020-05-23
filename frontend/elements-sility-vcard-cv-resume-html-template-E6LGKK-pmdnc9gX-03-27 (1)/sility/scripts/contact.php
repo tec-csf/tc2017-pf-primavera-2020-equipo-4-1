@@ -10,6 +10,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$nuc = $_POST['nuc'];
 		$c = $_POST['c'];
 		$output = shell_exec("cd ../../../../api; ./pro $x $alfa $beta $delta $gamma $process $nuc $c");
+
+	// 	$csvFile = file('prueba.csv');
+	// 	$CSVfp = fopen("prueba.csv", "r");
+	// 	if($CSVfp !== FALSE) {
+	// 	 while(! feof($CSVfp)) {
+	// 		$data[] = fgetcsv($CSVfp, 1000, ",","`");
+	// 		print_r($data);
+	// 		echo "<br>";
+	// 	 }
+	// 	}
+	// 	fclose($CSVfp);
+
+	// 	$js_array = json_encode($data);
+	// echo "var javascript_array = ". $js_array . ";\n";
+		
 		header( 'Location: ../simulation.html' ) ;
 		//echo "<h4>$output</h4>";
 	}else {
