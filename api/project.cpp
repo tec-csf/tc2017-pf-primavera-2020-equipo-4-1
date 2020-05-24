@@ -6,7 +6,11 @@
  * 3. El valor de x en el tercer parrafo es igual que el valor de c en el 
  *    segundo?
 */
-
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 #include <iostream>
 #include <vector>
 #include <string>
@@ -54,6 +58,7 @@ void insert(processor *arr, int n, int cores, float alpha, float beta, float del
   int main(int argc, char *argv[] ){
     if (argc != 8)
     {
+    int tiempoSimul = atoi(argv[9]);
     int n = atoi(argv[6]);
     int cores = atoi(argv[7]);
     float alpha = atoi(argv[2]);
@@ -66,7 +71,8 @@ void insert(processor *arr, int n, int cores, float alpha, float beta, float del
     //pedir usuario antes el n (procesadores)
     processor p[n];
     insert(p,n,cores,alpha,beta,delta,gamma,c);
-
+    
+    sleep(tiempoSimul);
     for (int i = 0; i < n; i++)
     {
       cout << "Nucleos: " << p[i].cores << endl;
@@ -78,7 +84,7 @@ void insert(processor *arr, int n, int cores, float alpha, float beta, float del
       cout << "Tiempo de Reparacion: " << p[i].TRc << endl;
     }
   }else{
-    cout<<"ERROR: Te falto un dato"<<endl;
+      cout<<"ERROR: Te falto un dato"<<endl;
   }
   
   
