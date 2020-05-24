@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// 	$js_array = json_encode($data);
 	// echo "var javascript_array = ". $js_array . ";\n";
 		
-		header( 'Location: ../simulation.html' ) ;
+		header( 'Location: ../simulPlay.html' ) ;
 		echo "<h4>$output</h4>" ;
 	}else {
 		echo "<h4>FALTO UN DATO</h4>";
