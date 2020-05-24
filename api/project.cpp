@@ -1,11 +1,3 @@
-/**
- * Preguntas para Cubells:
- * 1. A que se refiere con "si el ultimo falla el sistema falla"?
- * 2. Por "tiempo promedio de RB/RC" se refiere a que tanto tarde en recuperarse
- *    o rebootearse?
- * 3. El valor de x en el tercer parrafo es igual que el valor de c en el 
- *    segundo?
-*/
 #ifdef _WIN32
 #include <Windows.h>
 #else
@@ -40,24 +32,23 @@ struct processor
   int failure = 1; 
 };
 
-void insert(processor *arr, int n, int cores, float alpha, float beta, float delta, float gamma, float c)
-{
-    for (int i = 0; i < n; i++)
-    {
-      arr[i].ID = i;
-      arr[i].cores = cores;
-      arr[i].failureP = 1/gamma;
-      arr[i].probRc = c;
-      arr[i].probRb = 1 - c; 
-      arr[i].TRc = 1/beta;
-      arr[i].TRb = 1/alpha;
-      arr[i].TRepair = 1/delta;
-    }
+void insert(processor *arr, int n, int cores, float alpha, float beta, float delta, float gamma, float c){
+  for (int i = 0; i < n; i++)
+  {
+    arr[i].ID = i;
+    arr[i].cores = cores;
+    arr[i].failureP = 1/gamma;
+    arr[i].probRc = c;
+    arr[i].probRb = 1 - c; 
+    arr[i].TRc = 1/beta;
+    arr[i].TRb = 1/alpha;
+    arr[i].TRepair = 1/delta;
   }
+}
 
-  int main(int argc, char *argv[] ){
-    if (argc != 8)
-    {
+int main(int argc, char *argv[]){
+
+  if (argc != 8){
     int tiempoSimul = atoi(argv[9]);
     int n = atoi(argv[6]);
     int cores = atoi(argv[7]);
@@ -73,8 +64,7 @@ void insert(processor *arr, int n, int cores, float alpha, float beta, float del
     insert(p,n,cores,alpha,beta,delta,gamma,c);
     
     sleep(tiempoSimul);
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++){
       cout << "Nucleos: " << p[i].cores << endl;
       cout << "Probabilidad de fallo: " << p[i].failureP << endl;
       cout << "Probabilidad de RC: " << p[i].probRc << endl;
@@ -83,11 +73,11 @@ void insert(processor *arr, int n, int cores, float alpha, float beta, float del
       cout << "Tiempo de RB: " << p[i].TRb << endl;
       cout << "Tiempo de Reparacion: " << p[i].TRc << endl;
     }
-  }else{
-      cout<<"ERROR: Te falto un dato"<<endl;
   }
-  
-  
-  
+    
+  else {
+    cout<<"ERROR: Te falto un dato"<<endl;
+  }
+
   return 0;
 }
