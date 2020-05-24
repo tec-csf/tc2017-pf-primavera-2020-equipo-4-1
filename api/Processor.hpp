@@ -6,18 +6,16 @@
 #include <time.h>
 #include <pthread.h>
 #include <omp.h>
+#include <limits>
+#include <math.h>
 
-std::deque<std::vector<std::vector<int>>> list;
-
-class Processor{
+class Processor {
     private:
     int id, cores, rc = 1, rb = 1, failure = 1;
     float failureP, probRc, probRb, TRc, TRb, TRepair;
 
     public:
-    std::vector<std::vector<int>> generarMatriz(int n, int m);
-    void emparejar();
-    void multiplicar(std::vector<std::vector<int>> A, 
-    std::vector<std::vector<int>> B);
-    
+    void setEverything(int anID, int amountOfCores, float alpha, float beta, 
+        float delta, float gamma, float c);
+    int calculatePoisson(int x);
 };
