@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MATRICES
+#define MATRICES
 
 #include <iostream>
 #include <vector>
@@ -14,7 +15,7 @@ vector<vector<int>> generarMatriz(int n, int m)
 {
     vector<vector<int>> vec(n, vector<int>(m, 0));
 
-    cout << "filas: " << vec.size() << "\tcolumnas: " << vec[0].size() << endl;
+    //cout << "filas: " << vec.size() << "\tcolumnas: " << vec[0].size() << endl;
 
     for (int i = 0; i < n; i++)
     {
@@ -24,6 +25,7 @@ vector<vector<int>> generarMatriz(int n, int m)
         }
     }
 
+    /*
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
@@ -33,31 +35,9 @@ vector<vector<int>> generarMatriz(int n, int m)
         cout << "\n";
     }
     cout << "\n";
+    */
 
     return vec;
-}
-
-void emparejar()
-{
-    if (list.front()[0].size() == list.back().size())
-    {
-        if (list.size() > 1)
-        {
-            cout << "La primera y última matriz de la cola son compatibles" << endl;
-            multiplicar(list.front(), list.back());
-            list.pop_front();
-            list.pop_back();
-            list.shrink_to_fit();
-        }
-    }
-
-    else
-    {
-        cout << "NO hay matrices compatibles" << endl;
-    }
-
-    cout << "COLA: " << list.size() << endl
-         << endl;
 }
 
 void multiplicar(vector<vector<int>> A, vector<vector<int>> B)
@@ -75,6 +55,7 @@ void multiplicar(vector<vector<int>> A, vector<vector<int>> B)
         }
     }
 
+    /*
     for (int i = 0; i < C.size(); i++)
     {
         for (int j = 0; j < C[0].size(); j++)
@@ -83,4 +64,21 @@ void multiplicar(vector<vector<int>> A, vector<vector<int>> B)
         }
         cout << "\n";
     }
+    */
 }
+
+bool emparejar()
+{
+    if (list.front()[0].size() == list.back().size())
+    {
+        if (list.size() > 1)
+        {
+            //cout << "La primera y última matriz de la cola son compatibles" << endl;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+#endif
