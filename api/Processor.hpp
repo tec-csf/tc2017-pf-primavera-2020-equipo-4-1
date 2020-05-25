@@ -1,4 +1,5 @@
-#pragma once 
+#ifndef PROCESSOR
+#define PROCESSOR
 
 #include <iostream>
 #include <vector>
@@ -19,3 +20,5 @@ class Processor {
         float delta, float gamma, float c);
     int calculatePoisson(int x);
 };
+
+#endif
