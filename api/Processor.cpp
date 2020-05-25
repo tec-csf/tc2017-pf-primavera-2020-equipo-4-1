@@ -3,7 +3,7 @@
 using namespace std;
 
 void Processor::setEverything(int anID, int amountOfCores, float alpha, 
-float beta, float delta, float gamma, float c){
+    float beta, float delta, float gamma, float c){
     id = anID;
     cores = amountOfCores;
     failureP = 1 / gamma;
