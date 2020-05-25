@@ -33,3 +33,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 }
 ?>
+<button type="submit" class="button solid-button2 purple" onClick="history.back();return true;">Regresar</button>
+	

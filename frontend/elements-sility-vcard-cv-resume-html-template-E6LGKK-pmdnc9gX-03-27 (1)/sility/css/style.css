@@ -207,6 +207,7 @@ h3.small-margin-bottom {
 	transition: .25s;
 	outline: none !important;
 }
+
 .button:hover {
 	text-decoration: none;
 }
@@ -243,10 +244,23 @@ h3.small-margin-bottom {
 	box-shadow: 0 2px 2px rgba(0,0,0,.3);
 	text-align: center;
 }
+.solid-button2 {
+	font-size: 45px;
+	line-height: 46px;
+	padding: 11px 29px;
+	border: none;
+	border-radius: 3px;
+	box-shadow: 0 2px 2px rgba(0,0,0,.3);
+	text-align: center;
+}
 .solid-button:hover {
 	box-shadow: 0 3px 6px rgba(0,0,0,.3);
 }
 .solid-button.purple {
+	background: #7c4dff;
+	color: #fff;
+}
+.solid-button2.purple {
 	background: #7c4dff;
 	color: #fff;
 }
@@ -2154,6 +2168,11 @@ input:not([type=submit]):not([type=file]):focus, select:focus, textarea:focus {
 	background-color: gray;
 }
 
+#buttonBox{
+	margin: auto;
+	padding-left: 41%;
+}
+
 .sign{
 	width: auto;
 	margin: auto;
@@ -2197,4 +2216,73 @@ input:not([type=submit]):not([type=file]):focus, select:focus, textarea:focus {
 	width: 200px;
 	border: 1px solid white;
 	color: white;
+}
+
+.i1{
+	border-radius: 20px 20px;
+	background-color: green;
+	width: 30px;
+	height: 30px;
+	position: relative;
+	display: inline-block;
+	margin: 4px;
+}
+
+.i2{
+	border-radius: 20px 20px;
+	background-color: purple;
+	width: 30px;
+	height: 30px;
+	position: relative;
+	display: inline-block;
+	margin: 4px;
+}
+.i3{
+	border-radius: 20px 20px;
+	background-color: yellow;
+	width: 30px;
+	height: 30px;
+	position: relative;
+	display: inline-block;
+	margin: 4px;
+}
+
+.i4{
+	border-radius: 20px 20px;
+	background-color:blue;
+	width: 30px;
+	height: 30px;
+	position: relative;
+	display: inline-block;
+	margin: 4px;
+}
+
+.i5{
+	border-radius: 20px 20px;
+	background-color:red;
+	width: 30px;
+	height: 30px;
+	position: relative;
+	display: inline-block;
+	margin: 4px;
+}
+
+.i6{
+	border-radius: 20px 20px;
+	background-color: gainsboro;
+	width: 30px;
+	height: 30px;
+	position: relative;
+	display: inline-block;
+	margin: 4px;
+}
+
+.indice{
+	width: 80%;
+	margin: auto;
+	border: 3px solid black;
+	padding: 10px;
+	text-align: center;
+	display: flex;
+	justify-content: space-around;
 }
