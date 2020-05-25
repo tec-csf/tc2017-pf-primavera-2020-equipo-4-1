@@ -54,9 +54,10 @@ int Processor::calculatePoisson(int x){
 }
 
 int main(int argc, char *argv[]){
-    int amountOfProcessors = atoi(argv[1]), amountOfCores = atoi(argv[2]), i;
-    float alpha = atof(argv[3]), beta = atof(argv[4]), delta = atof(argv[5]), 
-            gamma = atof(argv[6]), c = atof(argv[7]);
+    int amountOfProcessors = atoi(argv[6]), amountOfCores = atoi(argv[7]), i;
+    float alpha = atof(argv[2]), beta = atof(argv[3]), delta = atof(argv[4]), 
+            gamma = atof(argv[5]), c = atof(argv[8]);
+    int timeSim = atoi(argv[9]);
     bool canTheyMultiply = false;
     struct arg_struct args;
 

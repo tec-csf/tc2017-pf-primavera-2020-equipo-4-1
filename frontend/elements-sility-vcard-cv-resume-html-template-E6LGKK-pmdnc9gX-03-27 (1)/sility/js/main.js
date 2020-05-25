@@ -52,26 +52,22 @@ var csvStringState = [`matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,fin
 0,5,0,0,,,,,,,,
 0,6,0,1,,,,,,,,`]; 
 
-// const csvString=`idMatriz,hold,mult,nproces,working,rc,rb,finish,nfinish,nfail
-// 0,1,0,0,0,0,0,0,0,0
-// ,,,1,0,0,0,0,0,0
-// ,,,2,0,0,0,0,0,0
-// ,,,3,0,0,0,0,0,0
-// ,,,4,0,0,0,0,0,0
-// ,,,5,0,0,0,0,0,0`
-
-// const csvString2=`idMatriz,hold,mult,nproces,working,rc,rb,finish,nfinish,nfail
-// 0,1,0,0,0,0,0,0,0,0
-// 1,0,0,1,0,0,0,0,0,0
-// ,,,2,0,0,0,0,0,0
-// ,,,3,0,0,0,0,0,0
-// ,,,4,0,0,0,0,0,0
-// ,,,5,0,0,0,0,0,0`
-
 // d3.csv("./simul.csv").then(function(data) {
 //     console.log(data[0]);
 //   });
 
+
+
+// async function readTextFile()
+// {
+//     await fetch("prueba.txt", {mode: 'no-cors'})
+//     .then(response => response.text())
+//     .then(data=> console.log(data))
+//     .catch(error => console.error(error));
+// }
+
+
+// var csvStringState = readTextFile();
 
 var objeto = {};
 var csvConfig = {
@@ -91,9 +87,9 @@ var csvConfig = {
             $(".matrices").append("<span class='dot'></span>");
     }
 
-    function writeNum(clase,n)
+    function writeNum(clase,n, tag1, tag2)
     {
-        $( clase ).replaceWith( "<h2>"+ n + "</h2>" );
+        $( clase ).replaceWith( tag1+ n + tag2 );
     }
 
     function resolveAfter1Seconds() {
@@ -121,27 +117,35 @@ async function Simulation() {
             for (let k = 0; k < stateArrayInit.length; k++) {
                     if (fail == true) {
                     var num = countF;
-                    writeNum(".numF",num);
+                    writeNum(".numF",num,"<h4 class=numF>","</h4>");
                     fail = false;
                     }
+
                     if (stateArray[k].working == 0 && stateArray[k].rc == 0 && stateArray[k].rb == 0) {
                         nodeList[k].style.backgroundColor = "red";
                     }else if(stateArray[k].working == 1){
                         nodeList[k].style.backgroundColor = "green";
                     }else if(stateArray[k].rc == 1 && stateArray[k].rb == 0){
                         nodeList[k].style.backgroundColor = "yellow";
+                        writeNum(".sign","RC","<div class = sign>","</div>");
                         await resolveAfter1Seconds();
                         await resolveAfter1Seconds();
                         await resolveAfter1Seconds();
+                        writeNum(".sign","","<div class = sign>","</div>");
                         fail = true;
                         ++countF; 
+                    }else if(stateArray[k].rc == 0 && stateArray[k].rb == 1){
+                        nodeList[k].style.backgroundColor = "yellow";
+                        writeNum(".sign","RB","<div class = sign>","</div>");
+                        await resolveAfter1Seconds();
+                        await resolveAfter1Seconds();
+                        await resolveAfter1Seconds();
+                        writeNum(".sign","","<div class = sign>","</div>");
                     }
-                    
                     if (stateArray[k].finish == 1) {
                          ++countC;
                         var num = countC;
-                        writeNum(".numC",num);
-                                            
+                        writeNum(".numC",num,"<h4 class=numC>","</h4>");                     
                     }
                     
                     
@@ -164,6 +168,8 @@ async function Simulation() {
                         await resolveAfter1Seconds();
                         console.log("Hold:" + stateArray[k].idMatriz);
                         nodeListM[k].style.backgroundColor = "purple";
+                        countH++;
+                        writeNum(".numT",countH,"<h4 class=numT>","</h4>" );
                     }else if (stateArray[k].mult == "1") {
                         nodeListM[k].style.backgroundColor = "blue";
                         console.log("Mult:" + stateArray[k].idMatriz);
@@ -175,29 +181,22 @@ async function Simulation() {
             }
                 
     
-    }else{
-        console.log("nada");
-    }
+        }else{
+            console.log("nada");
+        }
 
     }
         
   }
   
-  Simulation();
-
-  anime({
-    targets: 'div.bola_p1',
-    translateY: [
-        {value:250, duration:500},
-        {value: 0, duration:500, delay: 2000}
-]
-}); 
+Simulation();
 
 var n = 6;
 var holdList;
 var nodeList;
 var nodeListM;
 var fail = false;
+var countH = 0;
 var countF = 0;
 var countC = 0;
 var arr = new Array();
