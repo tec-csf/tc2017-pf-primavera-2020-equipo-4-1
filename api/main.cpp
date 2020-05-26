@@ -1,21 +1,17 @@
 //#include "Processor.hpp"
 #include "Matrices.hpp"
-#include <iostream>
-#include <vector>
-#include <deque>
-#include <time.h>
+#include "Processor.hpp"
+//#include <iostream>
+//#include <vector>
+//#include <deque>
+//#include <time.h>
 #include <pthread.h>
-#include <omp.h>
-#include <limits>
+//#include <omp.h>
+#include <limits.h>
 #include <math.h>
-#include <unistd.h>
+//#include <unistd.h>
 
 using namespace std;
-
-struct arg_struct {
-    deque<vector<vector<int>>>::iterator arg1;
-    deque<vector<vector<int>>>::iterator arg2;
-};
 
 struct thread {
     pthread_t tid;
@@ -77,20 +73,18 @@ int main(int argc, char *argv[]){
         canTheyMultiply = emparejar();
         if (canTheyMultiply == true){
             cout << "COLA: " << list.size() << endl;
-
-            for (i = 0; i < amountOfProcessors; i++){
-                deque<vector<vector<int>>>::iterator iter1 = list.front();
-                deque<vector<vector<int>>>::iterator iter2 = list.back();
-                tdata temp ={iter1, iter2};
-                tdata *datos = (tdata *)malloc(sizeof(tdata));        
-                memcpy(datos, &temp, sizeof(tdata))
+                vector<vector<int>> iter1 = list.front();
+                vector<vector<int>> iter2 = list.back();
+                /* list pop list back */
+                /* tdata temp ={iter1, iter2}; */
+                tdata *datos = (tdata *) malloc(sizeof(tdata));
+                datos-> arg1 =iter1;
+                datos-> arg2 = iter2;
+                //memcpy(datos, &temp, sizeof(tdata))
                 pthread_create(&listOfThreads[i].tid, NULL, multiplicar, datos);
-            }
-
-            multiplicar(list.front(), list.back());
-            list.pop_front();
-            list.pop_back();
-            list.shrink_to_fit();
+                list.pop_front();
+                list.pop_back();
+                list.shrink_to_fit();
         }
 
         /*

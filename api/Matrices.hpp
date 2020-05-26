@@ -11,8 +11,8 @@
 using namespace std;
 
 struct arg_struct {
-    deque<vector<vector<int>>>::iterator arg1;
-    deque<vector<vector<int>>>::iterator arg2;
+    vector<vector<int>> arg1;
+    vector<vector<int>> arg2;
 }tdata;
 
 
@@ -50,10 +50,10 @@ vector<vector<int>> generarMatriz(int n, int m)
 
 void * multiplicar(void * param)
 {
-    tdata * temp = (tdata *) param;
-    vector<vector<int>> C(param.size(), vector<int>(param[0].size(), 0));
-
-    for (int i = 0; i < param.size(); i++)
+    tdata *temp = (tdata *) param;
+    vector<vector<int>> C(temp->arg1[0].size(), vector<int>(temp->arg2.size()), 0);
+/*
+    for (int i = 0; i < temp->arg1.size(); i++)
     {
         for (int j = 0; j < param[0].size(); j++)
         {
@@ -63,7 +63,7 @@ void * multiplicar(void * param)
             }
         }
     }
-
+*/
     /*
     for (int i = 0; i < C.size(); i++)
     {
