@@ -177,9 +177,16 @@ async function Simulation() {
                         console.log("Hold:" + stateArray[k].idMatriz);
                         nodeListM[k].style.backgroundColor = "purple";
                         countH++;
+                        hold = true;
                         writeNum(".numT",countH,"<h4 class=numT>","</h4>" );
                     }else if (stateArray[k].mult == "1") {
                         nodeListM[k].style.backgroundColor = "blue";
+                        if(hold == true)
+                        {
+                            countH-=1;
+                            hold = false
+                            writeNum(".numT",countH,"<h4 class=numT>","</h4>" );
+                        }
                         console.log("Mult:" + stateArray[k].idMatriz);
                     }else if ((stateArray[k].idMatriz == "" && stateArray[k].matrizCreada == "0")) {
                         console.log("borrar " + stateArray[k].idMatriz);
@@ -204,6 +211,8 @@ var holdList;
 var nodeList;
 var nodeListM;
 var fail = false;
+var hold = false;
+var temp = 0;
 var countH = 0;
 var countF = 0;
 var countC = 0;
