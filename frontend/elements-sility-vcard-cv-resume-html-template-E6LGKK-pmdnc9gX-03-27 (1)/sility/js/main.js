@@ -1,74 +1,78 @@
-var csvStringState = [`matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
-1,0,0,0,0,0,0,0,0,0,0,0
-,,,,1,0,0,0,0,,,
-,,,,2,0,0,0,0,,,
-,,,,3,0,0,0,0,,,
-,,,,4,0,0,0,0,,,`,
-`matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
-0,0,1,0,0,0,0,0,0,0,0,0
-1,1,0,0,1,0,0,0,0,,,
-,,,,2,0,0,0,0,,,
-,,,,3,0,0,0,0,,,
-,,,,4,0,0,0,0,,,`,
-`matrizCreada ,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
-0,0,0,1,0,0,0,0,0,0,0,0
-0,1,0,1,1,0,0,0,0,,,
-1,2,0,0,2,0,0,0,0,,,
-,,,,3,0,0,0,0,,,
-,,,,4,0,0,0,0,,,`,
-`matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
-0,,0,0,0,1,0,0,0,0,0,0
-0,,0,0,1,0,0,0,0,,,
-0,2,0,0,2,0,0,0,0,,,
-1,3,0,0,3,0,0,0,0,,,
-,,,,4,0,0,0,0,,,`,
-`matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
-0,,0,0,0,1,0,0,0,0,0,0
-0,,0,0,1,0,0,0,0,,,
-0,2,1,0,2,0,0,0,0,,,
-0,3,0,0,3,0,0,0,0,,,
-1,4,0,0,4,0,0,0,0,,,`,
-`matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
-0,,0,0,0,0,1,0,0,0,0,0
-0,,0,0,1,0,0,0,0,,,
-0,2,0,1,2,0,0,0,0,,,
-0,3,0,0,3,0,0,0,0,,,
-0,4,0,1,4,0,0,0,0,,,
-1,5,0,,,,,,,,,`,
-`matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
-0,,0,0,0,0,0,0,0,0,1,0
-0,,0,0,1,1,0,0,0,,,
-0,,0,0,2,0,0,0,0,,,
-0,3,1,0,3,0,0,0,0,,,
-0,,0,0,4,0,0,0,0,,,
-0,5,0,,,,,,,,,
-1,6,0,,,,,,,,,`,
-`matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
-0,,0,0,0,0,0,0,0,1,1,0
-0,,0,0,1,0,0,0,1,,,
-0,,0,0,2,0,0,0,0,,,
-0,3,0,1,3,0,0,0,0,,,
-0,,0,0,4,0,0,0,0,,,
-0,5,0,0,,,,,,,,
-0,6,0,1,,,,,,,,`]; 
+// var csvStringState = [`matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
+// 1,0,0,0,0,0,0,0,0,0,0,0
+// ,,,,1,0,0,0,0,,,
+// ,,,,2,0,0,0,0,,,
+// ,,,,3,0,0,0,0,,,
+// ,,,,4,0,0,0,0,,,`,
+// `matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
+// 0,0,1,0,0,0,0,0,0,0,0,0
+// 1,1,0,0,1,0,0,0,0,,,
+// ,,,,2,0,0,0,0,,,
+// ,,,,3,0,0,0,0,,,
+// ,,,,4,0,0,0,0,,,`,
+// `matrizCreada ,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
+// 0,0,0,1,0,0,0,0,0,0,0,0
+// 0,1,0,1,1,0,0,0,0,,,
+// 1,2,0,0,2,0,0,0,0,,,
+// ,,,,3,0,0,0,0,,,
+// ,,,,4,0,0,0,0,,,`,
+// `matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
+// 0,,0,0,0,1,0,0,0,0,0,0
+// 0,,0,0,1,0,0,0,0,,,
+// 0,2,0,0,2,0,0,0,0,,,
+// 1,3,0,0,3,0,0,0,0,,,
+// ,,,,4,0,0,0,0,,,`,
+// `matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
+// 0,,0,0,0,1,0,0,0,0,0,0
+// 0,,0,0,1,0,0,0,0,,,
+// 0,2,1,0,2,0,0,0,0,,,
+// 0,3,0,0,3,0,0,0,0,,,
+// 1,4,0,0,4,0,0,0,0,,,`,
+// `matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
+// 0,,0,0,0,0,1,0,0,0,0,0
+// 0,,0,0,1,0,0,0,0,,,
+// 0,2,0,1,2,0,0,0,0,,,
+// 0,3,0,0,3,0,0,0,0,,,
+// 0,4,0,1,4,0,0,0,0,,,
+// 1,5,0,,,,,,,,,`,
+// `matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
+// 0,,0,0,0,0,0,0,0,0,1,0
+// 0,,0,0,1,1,0,0,0,,,
+// 0,,0,0,2,0,0,0,0,,,
+// 0,3,1,0,3,0,0,0,0,,,
+// 0,,0,0,4,0,0,0,0,,,
+// 0,5,0,,,,,,,,,
+// 1,6,0,,,,,,,,,`,
+// `matrizCreada,idMatriz,hold,mult,nProces,working,rc,rb,finish,nFinish,nFail,nHold
+// 0,,0,0,0,0,0,0,0,1,1,0
+// 0,,0,0,1,0,0,0,1,,,
+// 0,,0,0,2,0,0,0,0,,,
+// 0,3,0,1,3,0,0,0,0,,,
+// 0,,0,0,4,0,0,0,0,,,
+// 0,5,0,0,,,,,,,,
+// 0,6,0,1,,,,,,,,`]; 
 
 // d3.csv("./simul.csv").then(function(data) {
 //     console.log(data[0]);
 //   });
 
 
-
-// async function readTextFile()
-// {
-//     await fetch("prueba.txt", {mode: 'no-cors'})
-//     .then(response => response.text())
-//     .then(data=> console.log(data))
-//     .catch(error => console.error(error));
-// }
+var csvStringState;
+async function readTextFile()
+{
+    await fetch('http://localhost:5000/prueba.txt', {mode: 'no-cors'})
+    .then(response => response.text())
+    .then(data=> {
+        var someText = data.replace(/(\r\n|\n|\r)/gm, "\n" );
+        csvStringState = someText.split("`");
+        console.log(typeof (csvStringState));
+        console.log(csvStringState);
+    })
+    .catch(error => console.error(error));
+}
 
 
 // var csvStringState = readTextFile();
-
 var objeto = {};
 var csvConfig = {
     noheader:false,
@@ -101,18 +105,22 @@ var csvConfig = {
       }
 
 async function Simulation() {
+    await readTextFile();
+    console.log(csvStringState[0])
     const stateArrayInit=await csv(csvConfig).fromString(csvStringState[0]);
+    console.log("stateArrayInit " + stateArrayInit.length);
     var nProces = stateArrayInit.length;
-    console.log(nProces);
+    console.log("nProces " + nProces);
     createPro(nProces);
     for (let index = 0; index < csvStringState.length; index++) {
         
             console.log("State it: " + index);
             const stateArray=await csv(csvConfig).fromString(csvStringState[index]);
-            console.log(stateArray);
+            //console.log(stateArray);
 
             if(stateArray.length != 0 )
             {
+                console.log(stateArray);
             nodeList = document.querySelectorAll("div.bola_p1");
             for (let k = 0; k < stateArrayInit.length; k++) {
                     if (fail == true) {
