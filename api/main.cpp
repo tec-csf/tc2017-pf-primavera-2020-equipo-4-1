@@ -8,6 +8,7 @@
 #include <omp.h>
 #include <limits>
 #include <math.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -74,14 +75,16 @@ int main(int argc, char *argv[]){
         list.shrink_to_fit();
         list.push_back(generarMatriz(rand() % 4 + 2, (rand() % 4 + 2)));
         canTheyMultiply = emparejar();
-
         if (canTheyMultiply == true){
             cout << "COLA: " << list.size() << endl;
 
             for (i = 0; i < amountOfProcessors; i++){
-                args.arg1 = list.front();
-                args.arg2 = list.back();
-                pthread_create(&listOfThreads[i].tid, NULL, multiplicar(list.front(), list.back()), (void *)i);
+                deque<vector<vector<int>>>::iterator iter1 = list.front();
+                deque<vector<vector<int>>>::iterator iter2 = list.back();
+                tdata temp ={iter1, iter2};
+                tdata *datos = (tdata *)malloc(sizeof(tdata));        
+                memcpy(datos, &temp, sizeof(tdata))
+                pthread_create(&listOfThreads[i].tid, NULL, multiplicar, datos);
             }
 
             multiplicar(list.front(), list.back());

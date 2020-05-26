@@ -9,6 +9,7 @@
 #include <omp.h>
 #include <limits>
 #include <math.h>
+#include <unistd.h>
 
 class Processor {
     private:

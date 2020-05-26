@@ -6,8 +6,16 @@
 #include <deque>
 #include <time.h>
 #include <omp.h>
+#include <unistd.h>
 
 using namespace std;
+
+struct arg_struct {
+    deque<vector<vector<int>>>::iterator arg1;
+    deque<vector<vector<int>>>::iterator arg2;
+}tdata;
+
+
 
 deque<vector<vector<int>>> list;
 
@@ -40,17 +48,18 @@ vector<vector<int>> generarMatriz(int n, int m)
     return vec;
 }
 
-void multiplicar(vector<vector<int>> A, vector<vector<int>> B)
+void * multiplicar(void * param)
 {
-    vector<vector<int>> C(A.size(), vector<int>(B[0].size(), 0));
+    tdata * temp = (tdata *) param;
+    vector<vector<int>> C(param.size(), vector<int>(param[0].size(), 0));
 
-    for (int i = 0; i < A.size(); i++)
+    for (int i = 0; i < param.size(); i++)
     {
-        for (int j = 0; j < B[0].size(); j++)
+        for (int j = 0; j < param[0].size(); j++)
         {
-            for (int k = 0; k < A[0].size(); k++)
+            for (int k = 0; k < param[0].size(); k++)
             {
-                C[i][j] += A[i][k] * B[k][j];
+                C[i][j] += param[i][k] * param[k][j];
             }
         }
     }
