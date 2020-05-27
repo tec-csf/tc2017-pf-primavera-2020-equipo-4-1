@@ -1,15 +1,5 @@
-//#include "Processor.hpp"
-#include "Matrices.hpp"
 #include "Processor.hpp"
-//#include <iostream>
-//#include <vector>
-//#include <deque>
-//#include <time.h>
-#include <pthread.h>
-//#include <omp.h>
-#include <limits.h>
-#include <math.h>
-//#include <unistd.h>
+#include "Matrices.hpp"
 
 using namespace std;
 
@@ -18,45 +8,18 @@ struct thread {
     bool isWorking = false;
 };
 
-class Processor {
-    private:
-    int id, cores, rc = 1, rb = 1, failure = 1;
-    float failureP, probRc, probRb, TRc, TRb, TRepair;
-
-    public:
-    void setEverything(int anID, int amountOfCores, float alpha, float beta,
-                    float delta, float gamma, float c);
-    int calculatePoisson(int x);
-};
-
-void Processor::setEverything(int anID, int amountOfCores, float alpha, 
-                                float beta, float delta, float gamma, float c)
-{
-    id = anID;
-    cores = amountOfCores;
-    failureP = 1 / gamma;
-    probRc = c;
-    probRb = 1 - c;
-    TRc = 1 / beta;
-    TRb = 1 / alpha;
-    TRepair = 1 / delta;
-}
-
-int Processor::calculatePoisson(int x){
-    srand(time(0));
-    float r = rand() / INT_MAX;
-    int xPoisson = (1 / x) * log(1 - r);
-
-    return xPoisson;
-}
-
 int main(int argc, char *argv[]){
-    int amountOfProcessors = atoi(argv[6]), amountOfCores = atoi(argv[7]), i;
-    float alpha = atof(argv[2]), beta = atof(argv[3]), delta = atof(argv[4]), 
-            gamma = atof(argv[5]), c = atof(argv[8]);
+    int amountOfProcessors = atoi(argv[6]);
+    int amountOfCores = atoi(argv[7]);
+    float alpha = atof(argv[2]);
+    float beta = atof(argv[3]);
+    float delta = atof(argv[4]);
+    float gamma = atof(argv[5]);
+    float c = atof(argv[8]);
     int timeSim = atoi(argv[9]);
     bool canTheyMultiply = false;
     struct arg_struct args;
+    int i;
 
     srand(time(NULL));
 
@@ -77,8 +40,8 @@ int main(int argc, char *argv[]){
                 vector<vector<int>> iter2 = list.back();
                 /* list pop list back */
                 /* tdata temp ={iter1, iter2}; */
-                tdata *datos = (tdata *) malloc(sizeof(tdata));
-                datos-> arg1 =iter1;
+                arg_struct *datos = (arg_struct *) malloc(sizeof(arg_struct));
+                datos-> arg1 = iter1;
                 datos-> arg2 = iter2;
                 //memcpy(datos, &temp, sizeof(tdata))
                 pthread_create(&listOfThreads[i].tid, NULL, multiplicar, datos);

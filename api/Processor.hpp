@@ -1,5 +1,5 @@
-#ifndef PROCESSOR
-#define PROCESSOR
+#ifndef PROCESSOR_HPP
+#define PROCESSOR_HPP
 
 #include <iostream>
 #include <vector>
@@ -7,7 +7,7 @@
 #include <time.h>
 #include <pthread.h>
 #include <omp.h>
-#include <limits>
+#include <limits.h>
 #include <math.h>
 #include <unistd.h>
 

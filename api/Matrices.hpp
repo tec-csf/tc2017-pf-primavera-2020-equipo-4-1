@@ -1,5 +1,5 @@
-#ifndef MATRICES
-#define MATRICES
+#ifndef MATRICES_HPP
+#define MATRICES_HPP
 
 #include <iostream>
 #include <vector>
@@ -13,9 +13,7 @@ using namespace std;
 struct arg_struct {
     vector<vector<int>> arg1;
     vector<vector<int>> arg2;
-}tdata;
-
-
+};
 
 deque<vector<vector<int>>> list;
 
@@ -50,20 +48,20 @@ vector<vector<int>> generarMatriz(int n, int m)
 
 void * multiplicar(void * param)
 {
-    tdata *temp = (tdata *) param;
-    vector<vector<int>> C(temp->arg1[0].size(), vector<int>(temp->arg2.size()), 0);
-/*
+    arg_struct *temp = (arg_struct *) param;
+    vector<vector<int>> C(temp->arg1[0].size(), vector<int>(temp->arg2.size()));
+
     for (int i = 0; i < temp->arg1.size(); i++)
     {
-        for (int j = 0; j < param[0].size(); j++)
+        for (int j = 0; j < temp->arg2[0].size(); j++)
         {
-            for (int k = 0; k < param[0].size(); k++)
+            for (int k = 0; k < temp->arg1[0].size(); k++)
             {
-                C[i][j] += param[i][k] * param[k][j];
+                C[i][j] += temp->arg1[i][k] * temp->arg2[k][j];
             }
         }
     }
-*/
+
     /*
     for (int i = 0; i < C.size(); i++)
     {
@@ -74,6 +72,9 @@ void * multiplicar(void * param)
         cout << "\n";
     }
     */
+
+   //free(temp);
+   //pthread_exit(0);
 }
 
 bool emparejar()
