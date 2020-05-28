@@ -1,6 +1,6 @@
-# *[Poner aquí el Título del Proyecto]*
+# *[DISTRIBUCIÓN DE TRABAJOS EN UNA RED DE NODOS DISTRIBUIDOS]*
 ---
-#### Materia: *[Poner aquí nombre de la materia]*
+#### Materia: *[Análisis y diseño de algoritmos]*
 
 ##### Integrantes:
 1. *[Poner aquí Nombre y Apellidos del integrante 1]* - *[Poner aquí su Matrícula]* - *[Poner aquí su campus]*
