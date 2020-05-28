@@ -52,7 +52,7 @@ Como parte de la entrega final del proyecto, se debe incluir la siguiente inform
 
 ## 2. Descripción del proyecto
 
-*[Incluya aquí la descripción del proyecto.]*
+*[En el siguiente proyecto, se simula una distribución de trabajo en una red de nodos distribuidos y en el caso específico de nuestro proyecto, se basa]*
 
 ## 3. Solución
 
