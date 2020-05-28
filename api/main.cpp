@@ -9,14 +9,14 @@ struct thread {
 };
 
 int main(int argc, char *argv[]){
-    int amountOfProcessors = atoi(argv[6]);
-    int amountOfCores = atoi(argv[7]);
-    float alpha = atof(argv[2]);
-    float beta = atof(argv[3]);
-    float delta = atof(argv[4]);
-    float gamma = atof(argv[5]);
-    float c = atof(argv[8]);
-    int timeSim = atoi(argv[9]);
+    int amountOfProcessors = atoi(argv[1]);
+    int amountOfCores = atoi(argv[2]);
+    float alpha = atof(argv[3]);
+    float beta = atof(argv[4]);
+    float delta = atof(argv[5]);
+    float gamma = atof(argv[6]);
+    float c = atof(argv[7]);
+    int timeSim = atoi(argv[8]);
     bool canTheyMultiply = false;
     struct arg_struct args;
     int i;
@@ -30,24 +30,56 @@ int main(int argc, char *argv[]){
         processors[i].setEverything(i, amountOfCores, alpha, beta, delta, gamma, c);
     }
 
+    deque<vector<vector<int>>> list;
+
     while(true){
         list.shrink_to_fit();
         list.push_back(generarMatriz(rand() % 4 + 2, (rand() % 4 + 2)));
-        canTheyMultiply = emparejar();
+
+        //cout << list[i] << endl;
+        canTheyMultiply = emparejar(list);
+
         if (canTheyMultiply == true){
-            cout << "COLA: " << list.size() << endl;
-                vector<vector<int>> iter1 = list.front();
-                vector<vector<int>> iter2 = list.back();
-                /* list pop list back */
-                /* tdata temp ={iter1, iter2}; */
-                arg_struct *datos = (arg_struct *) malloc(sizeof(arg_struct));
-                datos-> arg1 = iter1;
-                datos-> arg2 = iter2;
-                //memcpy(datos, &temp, sizeof(tdata))
-                pthread_create(&listOfThreads[i].tid, NULL, multiplicar, datos);
-                list.pop_front();
-                list.pop_back();
-                list.shrink_to_fit();
+            printf("COLA: %d\n", list.size());
+
+            vector<vector<int>> m1 = list.front();
+            vector<vector<int>> m2 = list.back();
+            
+            //These 3 lines are the problem
+            arg_struct *datos = (arg_struct *) malloc(sizeof(arg_struct));
+            datos->arg1 = &m1;
+            datos->arg2 = &m2;
+            /*
+            printf("I am M1\n");
+
+            for (auto i : m1){
+                for (auto j : i){
+                    printf("%d ", j);
+                }
+
+                printf("\n");
+            }
+
+            printf("I am M2\n");
+
+            for (auto i : m2){
+                for (auto j : i){
+                    printf("%d ", j);            
+                }
+
+                printf("\n");
+            }
+
+            printf("\n");
+            */
+            pthread_create(&listOfThreads[i].tid, NULL, multiplicar, datos);
+            sleep(1);
+            printf("I am thread %d\n", listOfThreads[i].tid);
+            fflush(NULL);
+            //pthread_join(listOfThreads[i].tid, NULL);
+            list.pop_front();
+            list.pop_back();
+            list.shrink_to_fit();
         }
 
         /*

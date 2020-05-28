@@ -11,11 +11,9 @@
 using namespace std;
 
 struct arg_struct {
-    vector<vector<int>> arg1;
-    vector<vector<int>> arg2;
+    vector<vector<int>> *arg1;
+    vector<vector<int>> *arg2;
 };
-
-deque<vector<vector<int>>> list;
 
 vector<vector<int>> generarMatriz(int n, int m)
 {
@@ -49,35 +47,51 @@ vector<vector<int>> generarMatriz(int n, int m)
 void * multiplicar(void * param)
 {
     arg_struct *temp = (arg_struct *) param;
-    vector<vector<int>> C(temp->arg1[0].size(), vector<int>(temp->arg2.size()));
+    vector<vector<int>> m1 = *(temp->arg1);
+    vector<vector<int>> m2 = *(temp->arg2);
+    //vector<vector<int>> C(m1.size(), vector<int>(m2.size()));
 
-    for (int i = 0; i < temp->arg1.size(); i++)
+    printf("I am M1\n");
+
+    for (auto i : m1){
+        for (auto j : i){
+            printf("%d ", j);
+        }
+
+        printf("\n");
+    }
+
+    printf("I am M2\n");
+
+    for (auto i : m2){
+        for (auto j : i){
+            printf("%d ", j);            
+        }
+
+        printf("\n");
+    }
+
+    printf("\n");
+
+    for (int i = 0; i < m1.size(); i++)
     {
-        for (int j = 0; j < temp->arg2[0].size(); j++)
+        for (int j = 0; j < m2[0].size(); j++)
         {
-            for (int k = 0; k < temp->arg1[0].size(); k++)
+            int a = 0;
+
+            for (int k = 0; k < m1[0].size(); k++)
             {
-                C[i][j] += temp->arg1[i][k] * temp->arg2[k][j];
+                a += m1[i][k] * m2[k][j];
             }
-        }
-    }
 
-    /*
-    for (int i = 0; i < C.size(); i++)
-    {
-        for (int j = 0; j < C[0].size(); j++)
-        {
-            cout << C[i][j] << " ";
+            cout << a << " ";
         }
-        cout << "\n";
-    }
-    */
 
-   //free(temp);
-   //pthread_exit(0);
+        cout << endl;
+    }
 }
 
-bool emparejar()
+bool emparejar(deque<vector<vector<int>>> list)
 {
     if (list.front()[0].size() == list.back().size())
     {
