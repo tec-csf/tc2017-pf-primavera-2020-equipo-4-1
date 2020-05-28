@@ -61,6 +61,7 @@ var csvStringState;
 async function readTextFile()
 {
     await fetch('http://localhost:5000/prueba.txt', {mode: 'no-cors'})
+    //35.188.134.148
     .then(response => response.text())
     .then(data=> {
         var someText = data.replace(/(\r\n|\n|\r)/gm, "\n" );

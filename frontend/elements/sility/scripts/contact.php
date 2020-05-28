@@ -12,23 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$c = $_POST['c'];
 		shell_exec("cd ../../../../api; g++ project.cpp -o pro");
 		$output = shell_exec("cd ../../../../api; ./pro $x $alfa $beta $delta $gamma $process $nuc $c $tiempo");
-
-		// // $csvFile = file('prueba.txt');
-		// $CSVfp = fopen("prueba.txt", "r");
-		// if($CSVfp !== FALSE) {
-		//  while(! feof($CSVfp)) {
-		// 	$data[] = fgetcsv($CSVfp);
-		// 	print_r($data);
-		// 	echo "<br>";
-		//  }
-		// }
-		// fclose($CSVfp);
-
-		// // header('Content-Type: text/plain');
-		// $js_array = json_encode($data);
 		
 		header( 'Location: ../simulPlay.html' ) ;
-		// echo "<h4>$output</h4>" ;
+		//echo "<h4>$output</h4>" ;
 	}else {
 		echo "<h4>FALTO UN DATO</h4>";
 	}
