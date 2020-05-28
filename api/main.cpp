@@ -1,3 +1,8 @@
+/*
+Consultar con Cubells primero:
+Un metodo que se encargue del while infinito y de empujar matrices a la cola, junto con un thread para eso
+Un metodo que se encargue de todo lo demas dentro del while infinito, tambien con su propio thread
+*/
 #include "Processor.hpp"
 #include "Matrices.hpp"
 
