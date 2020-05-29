@@ -52,15 +52,23 @@ Como parte de la entrega final del proyecto, se debe incluir la siguiente inform
 
 ## 2. Descripción del proyecto
 
-*[Incluya aquí la descripción del proyecto.]*
+*[En el siguiente proyecto, se simula una distribución de trabajo en una red de nodos distribuidos y en el caso específico de nuestro proyecto, se basa esta red en un sistema multiprocesador/multinúcleos en el que los trabajos que se estaran resolviendo serán matrices de NxM. Para cada sección del problema, se le pueden modificar diferentes parámetros para calcular las probabilidades y tiempos que ocurren ciertos eventos que se explicarán mas adelante. En la primera sección del sistema, se encuentra el generador de trabajos (matrices), en el cuál se crearan en un tiempo determinado por una distribución de Poisson dado por el parámetro 'x'; en este mismo, si una matriz no tiene otra con la cual se puede multiplicar, esta misma se pone en espera. En el momento en el que existe una matriz que pueda multiplicar una de esas matrices que se encuentran en espera, se redirige el trabajo hacia un procesador disponible (el tiempo en el que tarda en salir esta determinado por el parámetro 'delta'). En el sistema, pueden ocurrir dos tipos de fallos: RC (recuperación) y RB (rearranque).]* 
+*[RC tiene una probabilidad de fallar, determinado por el parámetro 'C' y su recuperación le toma un tiempo determinado por el parametro 'Beta', el cuál estara dividido por uno. En el momento que acabe de recuperarse, el trabajo se recicla.]*
+*[RB tiene una probabilidad de fallar, determinado por el parámetro 'C', el cual estara restado por 1 (1 - C) y su reinicio le toma un tiempo determinado por el parametro 'Alfa', el cuál estara dividido por uno. Es importante mencionar que ambos fallos, se multiplicaran por el numero de orden del procesador. En el momento en el que el sistema esta funcionando, es cuándo no existan fallos. Al final, los resultados estaran dados por el tiempo en que el usuario haya indicado y encontrara así la cantidad de trabajos reciclado y terminados y matrices en espera.]*
 
 ## 3. Solución
 
-A continuación aparecen descritos los diferentes elementos que forman parte de la solución del proyecto.
+*[A continuación aparecen descritos los diferentes elementos que forman parte de la solución del proyecto:]*
+
+*[1) En el frontend, tenemos index.html con bootstrap, en el que existe un form para que el cliente, pueda determinar los parámetros diferentes. En el momento en el que se da submit, un script en php (backend) se ejecuta para poder mandar los parámetros al ejecutable de c++ (API), a través de un shell_exec(). En el momento que el API acaba, sobreescribe dos archivos encontrados en la carpeta del frontend (por motivos de seguridad de js), un dataset en formato CSV; el primero, estara los movimientos del sistema y en el segundo dataset, solo se incluirán los resultados finales. Por último, el script de PHP redirige hacia simulPlay.html (en donde se realiza la animación del sistema)]*
+
+*[2) En el momento que se abre simulPlay.html, se ejecuta el script de js, en el cual realiza un parse al primer dataset, lo coloca en un array de strings, separado por cada tabla de datos en un determinado momento. A través de una librería, convertimos este array de strings, en un JSON, el cuál se utiliza para poder determinar que tipo de figuras y colores se deben de desplegar en el sistema.]*
+
+*[3) Por último, en simulation.html, podremos ver desplegados nuestros resultados del sistema en el tiempo determinado. Estos datos son desplegados a partir de otro archivo en js llamado result, en el que realiza un parse al segundo dataset y a partir del array creado, realizamos un reemplazamiento a divs específicos. Al final de la página se encuentra un botón de Home, para así realizar nuevas simulaciones, el redireccionamiento esta por parte de un script en PHP]*
 
 ### 3.1 Arquitectura de la solución
 
-*[Incluya aquí un diagrama donde se aprecie la arquitectura de la solución propuesta, así como la interacción entre los diferentes componentes de la misma.]*
+![Arquitectura](./docs/Architecture.jpeg)
 
 *[Incluya una explicación del flujo de la información entre los diferentes componentes.]*
 
