@@ -74,7 +74,7 @@ Como parte de la entrega final del proyecto, se debe incluir la siguiente inform
 
 ### 3.2 Descripción de los componentes
 
-*[Incluya aquí una descripción detallada de cada uno de los componentes de la arquitectura así como una justificación de la selección de cada componente]*
+*[En cuanto al componente de PHP, decidimos usarlo para así mantener una comunicación entre el c++ y el html de manera simple, ya que PHP puede executar comandos dentro de un shell. Los datasets se decidieron hacer en formato CSV, para así tener una conversión rápida a JSON (esto lo realizamos de esta manera ya que, en c++ no pudimos realizarlo de manera directa en un archivo JSON). En cuanto a Javascript, decidimos usar sus componentes artísticos, para así poder realizar una animación que pudiese explicar lo que sucede en c++.]*
 
 ### 3.3 Frontend
 
