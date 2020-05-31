@@ -21,13 +21,17 @@ int main(int argc, char *argv[]){
     float delta = atof(argv[5]);
     float gamma = atof(argv[6]);
     float c = atof(argv[7]);
-    int timeSim = atoi(argv[8]);
+    time_t timeSim = atoi(argv[8]);
+    time_t endwait;
+    time_t start = time(NULL);
     bool canTheyMultiply = false;
     struct arg_struct args;
     int i;
 
     srand(time(NULL));
+    endwait = start + timeSim;
 
+    deque<vector<vector<int>>> list;
     vector<thread> listOfThreads(amountOfProcessors);
     vector<Processor> processors(amountOfProcessors);
 
@@ -35,9 +39,9 @@ int main(int argc, char *argv[]){
         processors[i].setEverything(i, amountOfCores, alpha, beta, delta, gamma, c);
     }
 
-    deque<vector<vector<int>>> list;
+    while (start < endwait){
+        start = time(NULL);
 
-    while(true){
         list.shrink_to_fit();
         list.push_back(generarMatriz(rand() % 4 + 2, (rand() % 4 + 2)));
 

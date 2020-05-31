@@ -10,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$process = $_POST['process'];
 		$nuc = $_POST['nuc'];
 		$c = $_POST['c'];
-		shell_exec("cd ../../../../api; g++ project.cpp -o pro");
-		$output = shell_exec("cd ../../../../api; ./pro $x $alfa $beta $delta $gamma $process $nuc $c $tiempo");
+		shell_exec("cd ../../../../api; g++ main.cpp -o main");
+		$output = shell_exec("cd ../../../../api; ./main $process $nuc $alfa $beta $delta $gamma $c $tiempo $x");
 		
 		header( 'Location: ../simulPlay.html' ) ;
 		//echo "<h4>$output</h4>" ;
