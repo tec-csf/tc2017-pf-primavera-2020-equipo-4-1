@@ -84,7 +84,7 @@ Como parte de la entrega final del proyecto, se debe incluir la siguiente inform
 
 ### 3.3 Frontend
 
-*El front ende esta conformado por HTML, JavaScript y PHP. El HTML y CSS son los encargados de el diseño y lo que se muestra en la página web. El JavaScript tiene la función de agregar y eliminar tags del HTML segun lo indica la simulación. JS tambien se encarga de hacer la simulación con la información y parametros que recibe. El PHP es el que se encarga de enviar y recibir los los parametros para que el programa funcione. Mediante el PHP el usuario puede pasar de una pagina a otre.*
+*El front ende esta conformado por HTML, JavaScript y PHP. El HTML y CSS son los encargados de el diseño y lo que se muestra en la página web. El JavaScript tiene la función de agregar y eliminar tags del HTML segun lo indica la simulación. JS tambien se encarga de hacer la simulación con la información y parametros que recibe. El PHP es el que se encarga de enviar y recibir los los parametros para que el programa funcione. Mediante el PHP el usuario puede pasar de una pagina a otra.*
 
 #### 3.3.1 Lenguaje de programación
 *HTML, CSS, JavaScrip y PHP*
