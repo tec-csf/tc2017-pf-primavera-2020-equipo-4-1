@@ -70,7 +70,7 @@ Como parte de la entrega final del proyecto, se debe incluir la siguiente inform
 
 ![Arquitectura](./docs/Architecture.jpeg)
 
-*[Incluya una explicación del flujo de la información entre los diferentes componentes.]*
+*[El HTML obtiene datos ingresados por el usuario mediante el Javascript y se los manda al PHP para poder hacer un script y mandarlos a la API. API procesa los datos y los sobreescribe en archivos, que posteriormente Javascrispt los leera. JavaScript ejecuta la simulación y es mostrada en HTML para que el usuario pueda ver la simulación. Cuando el usuario pida ver los resultados el HTML mostrara la información.]*
 
 ### 3.2 Descripción de los componentes
 
