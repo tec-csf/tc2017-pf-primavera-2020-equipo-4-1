@@ -72,7 +72,7 @@ Como parte de la entrega final del proyecto, se debe incluir la siguiente inform
 
 !Arquitectura(./docs/Architecture.jpeg)
 
-*[El HTML obtiene datos ingresados por el usuario mediante el Javascript y se los manda al PHP para poder hacer un script y mandarlos a la API. API procesa los datos y los sobreescribe en archivos, que posteriormente Javascrispt los leera. JavaScript ejecuta la simulación y es mostrada en HTML para que el usuario pueda ver la simulación. Cuando el usuario pida ver los resultados el HTML mostrara la información.]*
+*El HTML obtiene datos ingresados por el usuario mediante el Javascript y se los manda al PHP para poder hacer un script y mandarlos a la API. API procesa los datos y los sobreescribe en archivos, que posteriormente Javascrispt los leera. JavaScript ejecuta la simulación y es mostrada en HTML para que el usuario pueda ver la simulación. Cuando el usuario pida ver los resultados el HTML mostrara la información.*
 
 ### 3.2 Descripción de los componentes
 
@@ -84,11 +84,13 @@ Como parte de la entrega final del proyecto, se debe incluir la siguiente inform
 
 ### 3.3 Frontend
 
-*Incluya aquí una explicación de la solución utilizada para el frontend del proyecto. No olvide incluir las ligas o referencias donde se puede encontrar información de los lenguajes de programación, frameworks y librerías utilizadas.*
+*El front ende esta conformado por HTML, JavaScript y PHP. El HTML y CSS son los encargados de el diseño y lo que se muestra en la página web. El JavaScript tiene la función de agregar y eliminar tags del HTML segun lo indica la simulación. JS tambien se encarga de hacer la simulación con la información y parametros que recibe. El PHP es el que se encarga de enviar y recibir los los parametros para que el programa funcione. Mediante el PHP el usuario puede pasar de una pagina a otre.*
 
 #### 3.3.1 Lenguaje de programación
+*HTML, CSS, JavaScrip y PHP*
 #### 3.3.2 Framework
 #### 3.3.3 Librerías de funciones o dependencias
+*jQuery, Bootstrap, Font Awesome, Ionicons, Owl Carousel*
 
 ### 3.4 Backend
 
