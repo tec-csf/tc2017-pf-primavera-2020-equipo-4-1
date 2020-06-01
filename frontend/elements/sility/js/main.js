@@ -132,15 +132,15 @@ async function Simulation() {
                 
             for (let k = 0; k < stateArray.length; k++) {    
                 if(stateArray[k].matrizCreada == "0" || stateArray[k].matrizCreada == "1"){
+                    await resolveAfter1Seconds();
                     if (stateArray[k].hold == "1") {
-                        await resolveAfter1Seconds();
                         console.log("Hold:" + stateArray[k].idMatriz);
                         nodeListM[k].style.backgroundColor = "purple";
                         countH++;
                         hold = true;
                         writeNum(".numT",countH,"<h4 class=numT>","</h4>" );
                     }else if (stateArray[k].mult == "1") {
-                        await resolveAfter1Seconds();
+                        // await resolveAfter1Seconds();
                         nodeListM[k].style.backgroundColor = "blue";
                         if(hold == true)
                         {

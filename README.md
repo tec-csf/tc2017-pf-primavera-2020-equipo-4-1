@@ -113,29 +113,17 @@ Como parte de la entrega final del proyecto, se debe incluir la siguiente inform
 *OpenMP*
 *Pthread*
 
-### 3.5 API
+## 3.5 Pasos a seguir para utilizar el proyecto
 
-*Incluya aquí una explicación de la solución utilizada para implementar la API del proyecto. No olvide incluir las ligas o referencias donde se puede encontrar información de los lenguajes de programación, frameworks y librerías utilizadas.*
+*1) Abrir Google Cloud y crear una máquina virtual en Linux con mínimo 4 cores*
 
-#### 3.5.1 Lenguaje de programación
-#### 3.5.2 Framework
-#### 3.5.3 Librerías de funciones o dependencias
+*2) Bajar dependencias para compilar y usar diferentes lenguajes de programación (PHP y GCC)*
 
-*Incluya aquí una explicación de cada uno de los endpoints que forman parte de la API. Cada endpoint debe estar correctamente documentado.*
+*3) Poner en la máquina virtual: php -S "ip externa":"puerto a preferencia"*
 
-*Por cada endpoint debe incluir lo siguiente:*
+*4) Poner en el url "ip externa":"puerto a preferencia"*
 
-* **Descripción**:
-* **URL**:
-* **Verbos HTTP**:
-* **Headers**:
-* **Formato JSON del cuerpo de la solicitud**: 
-* **Formato JSON de la respuesta**:
-
-
-## 3.6 Pasos a seguir para utilizar el proyecto
-
-*1) *
+*NOTA: por seguridad, G-cloud no deja usar la ip externa, por lo que en la sección de redes se debe de crear una preferencia para acceder al localhost de la máquina virtual*
 
 ## 4. Referencias
 

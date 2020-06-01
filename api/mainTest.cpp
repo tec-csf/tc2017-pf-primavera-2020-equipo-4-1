@@ -17,7 +17,7 @@ using namespace std;
 #include <limits.h>
 #include <math.h>
 
-#define ITEMS 1000
+#define ITEMS INT_MAX
 #define BSIZE 100
 
 #define NP 1
@@ -83,8 +83,8 @@ bool multiplicar(vector<vector<int>> A, vector<vector<int>> B)
 				int e = (rand()% 100);
     			int xP = rand()+2;
     			int poissonD = (1/x) * (log( 1 + xP));
-				cout<<"this is poisson "<<poissonD<<endl;
-				cout<<"this is e "<<e<<endl;
+				// cout<<"this is poisson "<<poissonD<<endl;
+				// cout<<"this is e "<<e<<endl;
 		
 		if (e<=poissonD)
 		{
