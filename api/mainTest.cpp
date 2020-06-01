@@ -21,8 +21,15 @@ using namespace std;
 #define BSIZE 100
 
 #define NP 1
-#define NC 4
-#define NCORES 3
+int NC;
+int NCORES;
+float alpha;
+float beta;
+float delta;
+float notgamma;
+int c;
+time_t timeSim;
+int x;
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t produce = PTHREAD_COND_INITIALIZER;
@@ -33,7 +40,8 @@ void *  consumidor(void *);
 
 int in = 0, out = 0, count = 0;
 int contador = 0;
-int contador2 = 0; 
+int contador2 = 0;
+bool globalFail=false;
 vector<vector<int>> buffer[BSIZE];
 
 vector<vector<vector<int>>> list;
@@ -62,13 +70,43 @@ vector<vector<int>> generarMatriz(int n, int m)
     return vec;
 }
 
-void multiplicar(vector<vector<int>> A, vector<vector<int>> B)
+bool multiplicar(vector<vector<int>> A, vector<vector<int>> B)
 {
     vector<vector<int>> C(A.size(), vector<int> (B[0].size(),0));
     omp_set_num_threads(NCORES);
-    #pragma omp parallel for 
+	//poisson
+	bool eventRb=false;
+	#pragma omp parallel for
     for(int i=0; i<A.size(); i++)
     {
+		//srand(time(0));
+				int e = (rand()% 100);
+    			int xP = rand()+2;
+    			int poissonD = (1/x) * (log( 1 + xP));
+				cout<<"this is poisson "<<poissonD<<endl;
+				cout<<"this is e "<<e<<endl;
+		
+		if (e<=poissonD)
+		{
+			int r = (rand() % 100);
+				if (r<=c&&globalFail==false)
+				{
+					cout<<"recovery time"<<endl;
+					globalFail=true;
+					sleep(beta);
+					globalFail=false;
+				//break;
+				}
+			if (r<=(100-c)&&globalFail==false)
+				{
+					cout<<"reboot"<<endl;
+					globalFail=true;
+					eventRb=true;
+					sleep(alpha);
+				}
+		}
+		
+		//continue;
         printf("hilo: %d\n", omp_get_thread_num());
         for(int j=0; j<B[0].size(); j++)
         {
@@ -77,6 +115,7 @@ void multiplicar(vector<vector<int>> A, vector<vector<int>> B)
                 C[i][j]+=A[i][k]*B[k][j];
             }
         }
+		//if rc rb
     }
     /*for (int i = 0; i < C.size(); i++) { 
         for (int j = 0; j < C[0].size(); j++){ 
@@ -84,6 +123,14 @@ void multiplicar(vector<vector<int>> A, vector<vector<int>> B)
         } 
         cout<< "\n"; 
     }*/
+	if (eventRb)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool emparejar()
@@ -108,15 +155,28 @@ bool emparejar()
         }
         else if (flag)
         {
-            cout<<"NO hay matrices compatibles"<<endl;
+            //cout<<"NO hay matrices compatibles"<<endl;
         }
   }
         cout<<"COLA: "<<list.size()<<endl<<endl;
 		return true;
 }
+void asignarValores(int processsors, int cores, float valalpha, float valbeta, float valdelta, float valnotgamma, int valc, time_t valtimeSim, int valx ){
+	NC=processsors;
+	NCORES=cores;
+	alpha=1/valalpha;
+	beta=1/valbeta;
+	delta=valdelta;
+	notgamma=valnotgamma;
+	c=valc;
+	timeSim=valtimeSim;
+	x=valx;
+}
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
+	asignarValores(atoi(argv[1]), atoi(argv[2]),atof(argv[3]),atof(argv[4]),atof(argv[5]),atof(argv[6]), atof(argv[7]),atoi(argv[8]),atoi(argv[9]));
+
 	srand(time(NULL));
 	pthread_t hilos[NP+NC];
 	int result, i, nh;
@@ -162,6 +222,7 @@ int main(int argc, char **argv)
 
 void * consumidor(void * arg)
 {
+	bool flagrb =false;
 	int i;
 	int id = (long) arg;
 	
@@ -174,19 +235,31 @@ void * consumidor(void * arg)
 		if (count > 0)
 		{
 			printf("C%d --- Voy a multiplicar\n", id);
-			multiplicar(buffer[out], buffer[out+1]);
-			printf("C%d --- Se consumió el elemento %d \n", id, buffer[out]);
-
-			for(int i = 0; i < list.size()-1; i++)
+			flagrb = multiplicar(buffer[out], buffer[out+1]);
+			if (flagrb)
 			{
-				if (list[i][0].size()==list.back().size())
-        		{
-					list.erase(list.begin()+i); 
-                	list.pop_back();
-					break;
-				}
+				list.push_back(buffer[out]);
+				list.push_back(buffer[out+1]);
+				printf("C%d --- Se reciclo el elemento %d \n", id, buffer[out]);
+				globalFail = false;
 			}
-			contador2++;
+			else
+			{
+				printf("C%d --- Se consumió el elemento %d \n", id, buffer[out]);
+
+				for(int i = 0; i < list.size()-1; i++)
+				{
+					if (list[i][0].size()==list.back().size())
+        			{
+						sleep(delta);
+						list.erase(list.begin()+i); 
+                		list.pop_back();
+						break;
+					}
+				}
+				contador2++;
+			}
+			
 			cout<<"Consumidos: "<<contador2<<endl;
 			out += 2;
 			out %= BSIZE;
@@ -223,6 +296,7 @@ void * productor(void * arg)
 			while (flag)
 			{
 				list.push_back(generarMatriz(rand() % 8 + 2, rand() % 8 + 2));
+
         		flag = emparejar();
 			}
 
