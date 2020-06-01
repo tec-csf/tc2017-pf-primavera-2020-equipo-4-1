@@ -28,9 +28,12 @@ var csvConfig = {
         }
     }
 
-    function createMat()
+    function createMat(n)
     {
+        for (let index = 0; index < n; index++) {
             $(".matrices").append("<span class='dot'></span>");
+            
+        }
     }
 
     function writeNum(clase,n, tag1, tag2)
@@ -54,6 +57,7 @@ async function Simulation() {
     var nProces = stateArrayInit.length;
     console.log("nProces " + nProces);
     createPro(nProces);
+    createMat(5);
     for (let index = 0; index < csvStringState.length; index++) {
         
             console.log("State it: " + index);
@@ -72,11 +76,19 @@ async function Simulation() {
                     }
 
                     if (stateArray[k].working == 0 && stateArray[k].rc == 0 && stateArray[k].rb == 0) {
-                        nodeList[k].style.backgroundColor = "red";
+                        var id = stateArray[k].nProces;
+                        console.log("Este es el id:" + id);
+                        // let idx = stateArray.findIndex(i => i.nProces === id);
+                        // console.log("Este es su indice de id " + idx);
+                        nodeList[id].style.backgroundColor = "red";
                     }else if(stateArray[k].working == 1){
-                        nodeList[k].style.backgroundColor = "green";
+                        var id = stateArray[k].nProces;
+                        console.log("Este es el id:" + id);
+                        nodeList[id].style.backgroundColor = "green";
                     }else if(stateArray[k].rc == 1 && stateArray[k].rb == 0){
-                        nodeList[k].style.backgroundColor = "yellow";
+                        var id = stateArray[k].nProces;
+                        console.log("Este es el id:" + id);
+                        nodeList[id].style.backgroundColor = "yellow";
                         writeNum(".sign","RC","<div class = sign>","</div>");
                         await resolveAfter1Seconds();
                         await resolveAfter1Seconds();
@@ -85,7 +97,9 @@ async function Simulation() {
                         fail = true;
                         ++countF; 
                     }else if(stateArray[k].rc == 0 && stateArray[k].rb == 1){
-                        nodeList[k].style.backgroundColor = "yellow";
+                        var id = stateArray[k].nProces;
+                        console.log("Este es el id:" + id);
+                        nodeList[id].style.backgroundColor = "yellow";
                         writeNum(".sign","RB","<div class = sign>","</div>");
                         await resolveAfter1Seconds();
                         await resolveAfter1Seconds();
@@ -105,15 +119,19 @@ async function Simulation() {
         }
         if(stateArray.length != 0 )
         {
+            nodeListM = document.querySelectorAll(".dot");
             for (let k = 0; k < stateArray.length; k++) {
-                if (stateArray[k].matrizCreada == "") {
-                    console.log("nada");
+                if (stateArray[k].matrizCreada == "n") {
+                    nodeListM[k].style.backgroundColor = "black";
                 }else if(stateArray[k].idMatriz == k && stateArray[k].matrizCreada == "1" ){
                     await resolveAfter1Seconds();
                     console.log("crear");
-                    createMat(1);
-                }else{
-                    nodeListM = document.querySelectorAll(".dot");
+                    nodeListM[k].style.backgroundColor = "grey";
+                }
+            }
+                
+            for (let k = 0; k < stateArray.length; k++) {    
+                if(stateArray[k].matrizCreada == "0" || stateArray[k].matrizCreada == "1"){
                     if (stateArray[k].hold == "1") {
                         await resolveAfter1Seconds();
                         console.log("Hold:" + stateArray[k].idMatriz);
@@ -122,6 +140,7 @@ async function Simulation() {
                         hold = true;
                         writeNum(".numT",countH,"<h4 class=numT>","</h4>" );
                     }else if (stateArray[k].mult == "1") {
+                        await resolveAfter1Seconds();
                         nodeListM[k].style.backgroundColor = "blue";
                         if(hold == true)
                         {
@@ -130,9 +149,9 @@ async function Simulation() {
                             writeNum(".numT",countH,"<h4 class=numT>","</h4>" );
                         }
                         console.log("Mult:" + stateArray[k].idMatriz);
-                    }else if ((stateArray[k].idMatriz == "" && stateArray[k].matrizCreada == "0")) {
                         console.log("borrar " + stateArray[k].idMatriz);
-                        nodeListM[k].style.backgroundColor = "black";
+
+                    }else if ((stateArray[k].idMatriz == k && stateArray[k].matrizCreada == "n")) {
                     }
                 }
             }

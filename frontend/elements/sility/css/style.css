@@ -2131,7 +2131,7 @@ input:not([type=submit]):not([type=file]):focus, select:focus, textarea:focus {
 .dot {
 	height: 40px;
 	width: 40px;
-	background-color: #bbb;
+	background-color: black;
 	border-radius: 50%;
 	display: inline-block;
 }
