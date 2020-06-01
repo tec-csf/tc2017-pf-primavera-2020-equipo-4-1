@@ -119,7 +119,7 @@ Como parte de la entrega final del proyecto, se debe incluir la siguiente inform
 
 *2) Bajar dependencias para compilar y usar diferentes lenguajes de programación (PHP y GCC)*
 
-*3) Poner en la máquina virtual: php -S "ip externa":"puerto a preferencia"*
+*3) Poner en la máquina virtual: php -S "ip interna":"puerto a preferencia"*
 
 *4) Poner en el url "ip externa":"puerto a preferencia"*
 
@@ -127,4 +127,6 @@ Como parte de la entrega final del proyecto, se debe incluir la siguiente inform
 
 ## 4. Referencias
 
-*Incluya aquí las referencias a sitios de interés, datasets y cualquier otra información que haya utilizado para realizar el proyecto y que le puedan ser de utilidad a otras personas que quieran usarlo como referencia*
+*https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference*
+*https://www.w3schools.com/*
+*https://www.php.net/*
