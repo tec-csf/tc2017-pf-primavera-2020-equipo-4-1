@@ -21,15 +21,15 @@ using namespace std;
 #define BSIZE 100
 
 #define NP 1
-int NC;
-int NCORES;
-float alpha;
-float beta;
-float delta;
-float notgamma;
-int c;
-time_t timeSim;
-int x;
+int NC; //definition of global variable as  number of processors
+int NCORES; //definition of global variable as number of cores
+float alpha; //definition of alpha varible as duration event rc
+float beta; //definition of beta variable as duration of event rb
+float delta; //definiton of delta as duration of crating matixes
+float notgamma; //defition of notgamma varible as duration of poping elements
+int c; // definition of global variable as probability of rc
+time_t timeSim; //definition of global variable as duration of the simulation
+int x; //definition of variable for the poisson distribution
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t produce = PTHREAD_COND_INITIALIZER;
