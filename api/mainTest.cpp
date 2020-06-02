@@ -98,7 +98,8 @@ vector<vector<int>> generarMatriz(int n, int m)
  * @param A The first matrix.
  * @param B The second matrix.
  * 
- * @return 
+ * @return an integer that helps signal if a matrix is ready to be multilpied or
+ * 		not. 
 */
 int multiplicar(vector<vector<int>> A, vector<vector<int>> B)
 {
@@ -174,10 +175,10 @@ int multiplicar(vector<vector<int>> A, vector<vector<int>> B)
  * Opens a text file and prints 
  * 
  * @param vec
- * @param hold
- * @param nPro
- * @param status
- * @param proT
+ * @param hold The variable that tells wether a matrix is on hold or not.
+ * @param nPro The id of the producer thread.
+ * @param status The variable that tells wether a thread is working or not.
+ * @param proT The total amount of processors.
  * @param nFinish The amount of finished multiplications.
  * @param nFail The amount of failed multiplications.
 */
