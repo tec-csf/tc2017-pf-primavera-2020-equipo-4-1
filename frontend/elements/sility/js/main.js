@@ -1,7 +1,7 @@
 var csvStringState;
 async function readTextFile()
 {
-    await fetch('http://localhost:5000/prueba.txt', {mode: 'no-cors'})
+    await fetch('http://localhost:5000/prueba2.txt', {mode: 'no-cors'})
     //35.188.134.148
     .then(response => response.text())
     .then(data=> {
@@ -50,14 +50,20 @@ var csvConfig = {
       }
 
 async function Simulation() {
+    var cont = 0;
     await readTextFile();
     console.log(csvStringState[0])
     const stateArrayInit=await csv(csvConfig).fromString(csvStringState[0]);
     console.log("stateArrayInit " + stateArrayInit.length);
-    var nProces = stateArrayInit.length;
+    for (let index = 0; index < stateArrayInit.length; index++) {
+        if (stateArrayInit[index].nProces != 0) {
+            cont++;
+        }     
+    }
+    var nProces = cont + 1;
     console.log("nProces " + nProces);
     createPro(nProces);
-    createMat(5);
+    createMat(100);
     for (let index = 0; index < csvStringState.length; index++) {
         
             console.log("State it: " + index);
@@ -120,31 +126,27 @@ async function Simulation() {
         if(stateArray.length != 0 )
         {
             nodeListM = document.querySelectorAll(".dot");
-            for (let k = 0; k < stateArray.length; k++) {
-                if (stateArray[k].matrizCreada == "n") {
-                    nodeListM[k].style.backgroundColor = "black";
-                }else if(stateArray[k].idMatriz == k && stateArray[k].matrizCreada == "1" ){
-                    await resolveAfter1Seconds();
-                    console.log("crear");
-                    nodeListM[k].style.backgroundColor = "grey";
-                }
-            }
                 
             for (let k = 0; k < stateArray.length; k++) {    
                 if(stateArray[k].matrizCreada == "0" || stateArray[k].matrizCreada == "1"){
                     await resolveAfter1Seconds();
                     if (stateArray[k].hold == "1") {
+                        var id = stateArray[k].idMatriz;
                         console.log("Hold:" + stateArray[k].idMatriz);
-                        nodeListM[k].style.backgroundColor = "purple";
+                        nodeListM[id].style.backgroundColor = "purple";
                         countH++;
                         hold = true;
                         writeNum(".numT",countH,"<h4 class=numT>","</h4>" );
                     }else if (stateArray[k].mult == "1") {
-                        // await resolveAfter1Seconds();
-                        nodeListM[k].style.backgroundColor = "blue";
+                        var id = stateArray[k].idMatriz;
+                        await resolveAfter1Seconds();
+                        nodeListM[id].style.backgroundColor = "blue";
+                        await resolveAfter1Seconds();
+                        nodeListM[id].style.backgroundColor = "black";
+                        countH--;
                         if(hold == true)
                         {
-                            countH-=1;
+                            // countH-=1;
                             hold = false
                             writeNum(".numT",countH,"<h4 class=numT>","</h4>" );
                         }
