@@ -60,9 +60,9 @@ RB tiene una probabilidad de fallar, determinado por el parámetro 'C', el cual 
 
 ## 3. Solución
 
-A continuación aparecen descritos los diferentes elementos que forman parte de la solución del proyecto:*
+A continuación aparecen descritos los diferentes elementos que forman parte de la solución del proyecto:
 
-*1) En el frontend, tenemos index.html con bootstrap, en el que existe un form para que el cliente, pueda determinar los parámetros diferentes. En el momento en el que se da submit, un script en php (backend) se ejecuta para poder mandar los parámetros al ejecutable de c++ (API), a través de un shell_exec(). En el momento que el API acaba, sobreescribe dos archivos encontrados en la carpeta del frontend (por motivos de seguridad de js), un dataset en formato CSV; el primero, estara los movimientos del sistema y en el segundo dataset, solo se incluirán los resultados finales. Por último, el script de PHP redirige hacia simulPlay.html (en donde se realiza la animación del sistema)
+1) En el frontend, tenemos index.html con bootstrap, en el que existe un form para que el cliente, pueda determinar los parámetros diferentes. En el momento en el que se da submit, un script en php (backend) se ejecuta para poder mandar los parámetros al ejecutable de c++ (API), a través de un shell_exec(). En el momento que el API acaba, sobreescribe dos archivos encontrados en la carpeta del frontend (por motivos de seguridad de js), un dataset en formato CSV; el primero, estara los movimientos del sistema y en el segundo dataset, solo se incluirán los resultados finales. Por último, el script de PHP redirige hacia simulPlay.html (en donde se realiza la animación del sistema)
 
 2) En el momento que se abre simulPlay.html, se ejecuta el script de js, en el cual realiza un parse al primer dataset, lo coloca en un array de strings, separado por cada tabla de datos en un determinado momento. A través de una librería, convertimos este array de strings, en un JSON, el cuál se utiliza para poder determinar que tipo de figuras y colores se deben de desplegar en el sistema.
 
@@ -78,7 +78,7 @@ El HTML obtiene datos ingresados por el usuario mediante el Javascript y se los 
 
 En cuanto al componente de PHP, decidimos usarlo para así mantener una comunicación entre el c++ y el html de manera simple, ya que PHP puede executar comandos dentro de un shell. Los datasets se decidieron hacer en formato CSV, para así tener una conversión rápida a JSON (esto lo realizamos de esta manera ya que, en c++ no pudimos realizarlo de manera directa en un archivo JSON). 
 
-En cuanto a Javascript, decidimos usar sus componentes artísticos, para así poder realizar una animación que pudiese explicar lo que sucede en c++.
+En cuanto a Javascript, decidimos usar sus componentes artísticos, para así poder realizar una animación que pudiese explicar lo que sucede en C++.
 
 Utilizamos Google Cloud VM para así desplegar nuestra página en la nube.
 
@@ -144,6 +144,6 @@ php -S "ip interna":"puerto a preferencia"
 
 ## 4. Referencias
 
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
-https://www.w3schools.com/
-https://www.php.net/
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
+- https://www.w3schools.com/
+- https://www.php.net/
