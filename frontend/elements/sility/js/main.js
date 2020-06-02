@@ -50,7 +50,6 @@ var csvConfig = {
       }
 
 async function Simulation() {
-    var cont = 0;
     await readTextFile();
     console.log(csvStringState[0])
     const stateArrayInit=await csv(csvConfig).fromString(csvStringState[0]);
@@ -68,95 +67,84 @@ async function Simulation() {
             if(stateArray.length != 0 )
             {
                 console.log(stateArray);
-            nodeList = document.querySelectorAll("div.bola_p1");
-            for (let k = 0; k < stateArrayInit.length; k++) {
+                nodeList = document.querySelectorAll("div.bola_p1");
+                nodeListM = document.querySelectorAll(".dot");
+                for (let k = 0; k < stateArrayInit.length; k++) {
+                    await resolveAfter1Seconds();
+                    if(stateArray[k].matrizCreada == "0" || stateArray[k].matrizCreada == "1")
+                    {
+                        if (stateArray[k].hold == "1") {
+                            var id = stateArray[k].idMatriz;
+                            console.log("Hold:" + stateArray[k].idMatriz);
+                            nodeListM[id].style.backgroundColor = "purple";
+                            countH++;
+                            hold = true;
+                            writeNum(".numT",countH,"<h4 class=numT>","</h4>" );
+                        }else if (stateArray[k].mult == "1") {
+                            var id = stateArray[k].idMatriz;
+                            nodeListM[id].style.backgroundColor = "blue";
+                            await resolveAfter1Seconds() - .5;
+                            nodeListM[id].style.backgroundColor = "black";
+                            if(hold == true)
+                            {
+                                countH-=1;
+                                hold = false
+                                writeNum(".numT",countH,"<h4 class=numT>","</h4>" );
+                            }
+                            console.log("Mult:" + stateArray[k].idMatriz);
+                            console.log("borrar " + stateArray[k].idMatriz);
+        
+                        }else if ((stateArray[k].idMatriz == k && stateArray[k].matrizCreada == "n")) {
+                        }
+                    }
+                    await resolveAfter1Seconds();
                     if (fail == true) {
                     var num = countF;
                     writeNum(".numF",num,"<h4 class=numF>","</h4>");
                     fail = false;
                     }
-
-                    if (stateArray[k].working == 0 && stateArray[k].rc == 0 && stateArray[k].rb == 0) {
+                    var status = stateArray[k].working;
+                    console.log("STATUS: " + status);
+                    if (status == 0) {
                         var id = stateArray[k].nProces;
                         console.log("Este es el id:" + id);
+                        console.log("Estoy en NO TRABAJO:");
                         // let idx = stateArray.findIndex(i => i.nProces === id);
                         // console.log("Este es su indice de id " + idx);
                         nodeList[id].style.backgroundColor = "red";
-                    }else if(stateArray[k].working == 1){
+
+                    }else if(status == 1){
+
                         var id = stateArray[k].nProces;
-                        console.log("Este es el id:" + id);
+                        console.log("Estoy en TRABAJANDO:");
                         nodeList[id].style.backgroundColor = "green";
-                    }else if(stateArray[k].rc == 1 && stateArray[k].rb == 0){
+
+                    }else if(status == 3){
                         var id = stateArray[k].nProces;
-                        console.log("Este es el id:" + id);
+                        console.log("Estoy en RC:");
                         nodeList[id].style.backgroundColor = "yellow";
                         writeNum(".sign","RC","<div class = sign>","</div>");
-                        await resolveAfter1Seconds();
-                        await resolveAfter1Seconds();
                         await resolveAfter1Seconds();
                         writeNum(".sign","","<div class = sign>","</div>");
                         fail = true;
                         ++countF; 
-                    }else if(stateArray[k].rc == 0 && stateArray[k].rb == 1){
+                    }else if(status == 2){
                         var id = stateArray[k].nProces;
-                        console.log("Este es el id:" + id);
+                        console.log("Estoy en RB:");
                         nodeList[id].style.backgroundColor = "yellow";
                         writeNum(".sign","RB","<div class = sign>","</div>");
                         await resolveAfter1Seconds();
-                        await resolveAfter1Seconds();
-                        await resolveAfter1Seconds();
                         writeNum(".sign","","<div class = sign>","</div>");
-                    }
-                    if (stateArray[k].finish == 1) {
-                         ++countC;
-                        var num = countC;
+                    }else{}
+                        var num = stateArray[k].nFinish;
                         writeNum(".numC",num,"<h4 class=numC>","</h4>");                     
-                    }
-                    
-                    
-                }
-        }else{
-            console.log("nada");
-        }
-        if(stateArray.length != 0 )
-        {
-            nodeListM = document.querySelectorAll(".dot");
-                
-            for (let k = 0; k < stateArray.length; k++) {    
-                if(stateArray[k].matrizCreada == "0" || stateArray[k].matrizCreada == "1"){
-                    await resolveAfter1Seconds();
-                    if (stateArray[k].hold == "1") {
-                        var id = stateArray[k].idMatriz;
-                        console.log("Hold:" + stateArray[k].idMatriz);
-                        nodeListM[id].style.backgroundColor = "purple";
-                        countH++;
-                        hold = true;
-                        writeNum(".numT",countH,"<h4 class=numT>","</h4>" );
-                    }else if (stateArray[k].mult == "1") {
-                        var id = stateArray[k].idMatriz;
-                        await resolveAfter1Seconds();
-                        nodeListM[id].style.backgroundColor = "blue";
-                        await resolveAfter1Seconds();
-                        nodeListM[id].style.backgroundColor = "black";
-                        countH--;
-                        if(hold == true)
-                        {
-                            // countH-=1;
-                            hold = false
-                            writeNum(".numT",countH,"<h4 class=numT>","</h4>" );
-                        }
-                        console.log("Mult:" + stateArray[k].idMatriz);
-                        console.log("borrar " + stateArray[k].idMatriz);
 
-                    }else if ((stateArray[k].idMatriz == k && stateArray[k].matrizCreada == "n")) {
-                    }
+                    
                 }
-            }
-                
-    
         }else{
             console.log("nada");
         }
+        
 
     }
         
