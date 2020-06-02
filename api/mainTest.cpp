@@ -3,7 +3,6 @@
   - NP productores y NC consumidores
   - Se utiliza pthread_cond_broadcast()
 */
-using namespace std;
 
 #include <iostream>
 #include <stdio.h>
@@ -18,44 +17,57 @@ using namespace std;
 #include <math.h>
 #include <fstream>
 
+using namespace std;
+
 #define ITEMS INT_MAX
 #define BSIZE 100
-
 #define NP 1
-int NC; //definition of global variable as  number of processors
-int NCORES; //definition of global variable as number of cores
-float alpha; //definition of alpha varible as duration event rc
-float beta; //definition of beta variable as duration of event rb
-float delta; //definiton of delta as duration of creating matrix's
-float notgamma; //defition of notgamma varible as duration of poping elements
-int c; // definition of global variable as probability of rc
-time_t timeSim; //definition of global variable as duration of the simulation
-int x; //definition of variable for the poisson distribution 
+
+// Definition of global variable as number of processors
+int NC; 
+// Definition of global variable as number of cores
+int NCORES;
+// Definition of alpha varible as duration of RC event 
+float alpha; 
+// Definition of beta variable as duration of RB event 
+float beta; 
+// Definiton of delta as duration of creating matrix's
+float delta; 
+// Defition of notgamma varible as duration of poping elements
+float notgamma; 
+// Definition of global variable as probability of RC
+int c; 
+// Definition of global variable as duration of the simulation
+time_t timeSim;
+// Definition of global variable for the Poisson distribution 
+int x;
 int nFail = 0;
 int nFinish = 0;
-vector <int> vec;
-ofstream fout; 
-ofstream fout2;
-  
-
-
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t produce = PTHREAD_COND_INITIALIZER;
-pthread_cond_t consume = PTHREAD_COND_INITIALIZER;
-
-void *  productor(void *);
-void *  consumidor(void *);
-
 int in = 0, out = 0, count = 0;
 int contador = 0;
 int contador2 = 0;
 bool globalFail=false;
+vector <int> vec;
+ofstream fout; 
+ofstream fout2;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t produce = PTHREAD_COND_INITIALIZER;
+pthread_cond_t consume = PTHREAD_COND_INITIALIZER;
 vector<vector<int>> buffer[BSIZE];
-
 vector<vector<vector<int>>> list;
 
-using namespace std;
+void * productor(void *);
+void * consumidor(void *);
 
+/**
+ * Generates a matriz using 2 random numbers, one for the columns and one for 
+ * the rows. It also fills the matrix with random numbers;
+ * 
+ * @param n The number of columns in the matrix.
+ * @param m The number of rows in the matrix.
+ * 
+ * @return vec, the matrix that was generated.
+*/
 vector<vector<int>> generarMatriz(int n, int m)
 {
     vector<vector<int>> vec(n, vector<int> (m,0));
@@ -78,6 +90,16 @@ vector<vector<int>> generarMatriz(int n, int m)
     return vec;
 }
 
+/**
+ * Receives two matrices to multiply after going through a Poisson distribution
+ * to determine wether the consumer thread using this method goes into RC or RB 
+ * in a simulated manner.
+ * 
+ * @param A The first matrix.
+ * @param B The second matrix.
+ * 
+ * @return 
+*/
 int multiplicar(vector<vector<int>> A, vector<vector<int>> B)
 {
     vector<vector<int>> C(A.size(), vector<int> (B[0].size(),0));
@@ -102,8 +124,8 @@ int multiplicar(vector<vector<int>> A, vector<vector<int>> B)
 				{
 					cout<<"recovery time"<<endl;
 					globalFail=true;
-					eventRc=2;
 					sleep(beta);
+					eventRc=2;
 					globalFail=false;
 				//break;
 				}
@@ -148,6 +170,17 @@ int multiplicar(vector<vector<int>> A, vector<vector<int>> B)
 	}
 }
 
+/**
+ * Opens a text file and prints 
+ * 
+ * @param vec
+ * @param hold
+ * @param nPro
+ * @param status
+ * @param proT
+ * @param nFinish The amount of finished multiplications.
+ * @param nFail The amount of failed multiplications.
+*/
 void imprimirMatrices(vector<int> vec, bool hold, int nPro, int status, int proT, int nFinish, int nFail)
 {
 		fout.open("./../frontend/elements/sility/prueba2.txt", std::ios_base::app); 
@@ -164,6 +197,13 @@ void imprimirMatrices(vector<int> vec, bool hold, int nPro, int status, int proT
 		
 }
 
+/**
+ * Opens a text file and prints the number of finished multiplications and the 
+ * number of failed multiplications.
+ * 
+ * @param nFinish The amount of finished multiplications.
+ * @param nFail The amount of failed multiplications.
+*/
 void imprimirResultados(int nFinish, int nFail)
 {
 		fout.open("./../frontend/elements/sility/resultados.txt", ios::out); 
@@ -174,6 +214,13 @@ void imprimirResultados(int nFinish, int nFail)
 		
 }
 
+/**
+ * Checks wether two pair of matrices can be multiplied by checking if the 
+ * amount of columns of the first matrix is the same as the amount of rows of 
+ * the second matrix. 
+ * 
+ * @return true or false as to if they can multiply or not.
+*/
 bool emparejar()
 {
     bool flag = true;
@@ -202,6 +249,23 @@ bool emparejar()
         cout<<"COLA: "<<list.size()<<endl<<endl;
 		return true;
 }
+
+/**
+ * Assigns the values of input variables to global variables. Some of these 
+ * global variables will have the same value as the input variables, but some 
+ * will be divided by the values of those input variables.
+ * 
+ * @param processors The amount of processors/threads to be used for this 
+ * 		simulation.
+ * @param cores The amount of cores to be used per processor/thread.
+ * @param valalpha The value of alpha.
+ * @param valbeta The value of beta.
+ * @param valdelta The value of delta.
+ * @param valnotgamma The value of valnotgamma.
+ * @param valc The value of c 
+ * @param valtimeSim The value of timeSim
+ * @param valx The value of x
+*/
 void asignarValores(int processsors, int cores, float valalpha, float valbeta, float valdelta, float valnotgamma, int valc, time_t valtimeSim, int valx ){
 	NC=processsors;
 	NCORES=cores;
@@ -214,23 +278,28 @@ void asignarValores(int processsors, int cores, float valalpha, float valbeta, f
 	x=valx;
 }
 
+/**
+ * Receives all the necessary parameters when running the program using the 
+ * executable or through the webpage,
+ * 
+ * @param argc The number of arguments passed to the program
+ * @param argv The array that saves all the arguments
+*/
 int main(int argc, char *argv[])
 {
-	asignarValores(atoi(argv[1]), atoi(argv[2]),atof(argv[3]),atof(argv[4]),atof(argv[5]),atof(argv[6]), atof(argv[7]),atoi(argv[8]),atoi(argv[9]));
+	asignarValores(atoi(argv[1]), atoi(argv[2]),atof(argv[3]),atof(argv[4]),
+		atof(argv[5]),atof(argv[6]), atof(argv[7]),atoi(argv[8]),atoi(argv[9]));
 
 	srand(time(NULL));
 	pthread_t hilos[NP+NC];
 	int result, i, nh;
 
 	fout.open("./../frontend/elements/sility/prueba2.txt",ios::out); 
-
 	fout2.open("./../frontend/elements/sility/resultados.txt",ios::out); 
 
 	fout << "matrizCreada,idMatriz,hold,mult,nProces,working,procesT,nFinish,nFail\n";
 
-	
 	fout.close();
-
 	fout2.close();
 	
 	//Crear los hilos
@@ -272,6 +341,14 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
+/**
+ * A method used by every consumer thread that makes a call to "multiplicar" to 
+ * multiply matrices. It can enter a state of recuperation or reboot in case the 
+ * RC or RB flags are active. 
+ * 
+ * @param arg A pointer of type void that points to the ID or number of the 
+ * 		thread using this method.
+*/
 void * consumidor(void * arg)
 {
 	int flagrb;
@@ -353,7 +430,6 @@ void * consumidor(void * arg)
 			pthread_cond_wait(&consume, &mutex);
 			printf("-------------- Consumidor %d se despertó ------------\n", id);
 		}
-		status = 0;
 		imprimirResultados(nFinish,nFail);
 		pthread_mutex_unlock(&mutex);
 	}
@@ -361,13 +437,21 @@ void * consumidor(void * arg)
 	pthread_exit(NULL);
 }
 
+/**
+ * A method used by the productor thread that makes a call to "generarMatriz" to
+ * create matrices with random sizes and later pushes them back to the list of 
+ * matrices. The matrices are also pushed into the buffer for the consumer 
+ * threads to use.
+ * 
+ * @param arg A pointer of type void that points to the ID or number of the 
+ * 		thread using this method (which in this case is only 1).
+*/
 void * productor(void * arg)
 {
 	bool flag = true;
 	int i;
 	int id = (long) arg;
 
-	
 	/* Producir elementos */
 	printf("+++ Inicia productor %d\n", id);
 	
