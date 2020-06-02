@@ -1,7 +1,7 @@
 var csvStringState;
 async function readTextFile()
 {
-    await fetch('http://localhost:5000/resultados.txt', {mode: 'no-cors'})
+    await fetch('http://34.69.40.232:5000/resultados.txt', {mode: 'no-cors'})
     //35.188.134.148
     .then(response => response.text())
     .then(data=> {

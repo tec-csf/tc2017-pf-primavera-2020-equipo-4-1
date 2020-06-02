@@ -10,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$process = $_POST['process'];
 		$nuc = $_POST['nuc'];
 		$c = $_POST['c'];
-		shell_exec("cd ../../../../api; g++ mainTest.cpp -o mainTest -pthread -fopenmp");
-		$output = shell_exec("cd ../../../../api;gtimeout $tiempo ./mainTest $process $nuc $alfa $beta $delta $gamma $c $tiempo $x");
+		//shell_exec("cd ../../../../api; g++ mainTest.cpp -o mainTest -pthread -fopenmp");
+		$output = shell_exec("cd ../../../../api;timeout $tiempo ./mainTest $process $nuc $alfa $beta $delta $gamma $c $tiempo $x");
 		//instalar timeout en VM
 		header( 'Location: ../simulPlay.html' ) ;
 		//echo "<h4>$output</h4>" ;

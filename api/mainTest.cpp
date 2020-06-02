@@ -102,8 +102,8 @@ int multiplicar(vector<vector<int>> A, vector<vector<int>> B)
 				{
 					cout<<"recovery time"<<endl;
 					globalFail=true;
-					sleep(beta);
 					eventRc=2;
+					sleep(beta);
 					globalFail=false;
 				//break;
 				}
@@ -353,6 +353,7 @@ void * consumidor(void * arg)
 			pthread_cond_wait(&consume, &mutex);
 			printf("-------------- Consumidor %d se despertó ------------\n", id);
 		}
+		status = 0;
 		imprimirResultados(nFinish,nFail);
 		pthread_mutex_unlock(&mutex);
 	}

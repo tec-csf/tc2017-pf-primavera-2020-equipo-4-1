@@ -1,7 +1,7 @@
 var csvStringState;
 async function readTextFile()
 {
-    await fetch('http://localhost:5000/prueba2.txt', {mode: 'no-cors'})
+    await fetch('http://34.69.40.232:5000/prueba2.txt', {mode: 'no-cors'})
     //35.188.134.148
     .then(response => response.text())
     .then(data=> {
@@ -94,7 +94,7 @@ async function Simulation() {
                             console.log("Mult:" + stateArray[k].idMatriz);
                             console.log("borrar " + stateArray[k].idMatriz);
         
-                        }else if ((stateArray[k].idMatriz == k && stateArray[k].matrizCreada == "n")) {
+                        }else{ 
                         }
                     }
                     await resolveAfter1Seconds();
@@ -126,6 +126,7 @@ async function Simulation() {
                         writeNum(".sign","RC","<div class = sign>","</div>");
                         await resolveAfter1Seconds();
                         writeNum(".sign","","<div class = sign>","</div>");
+                        //nodeList[id].style.backgroundColor = "red";
                         fail = true;
                         ++countF; 
                     }else if(status == 2){
@@ -135,6 +136,7 @@ async function Simulation() {
                         writeNum(".sign","RB","<div class = sign>","</div>");
                         await resolveAfter1Seconds();
                         writeNum(".sign","","<div class = sign>","</div>");
+                        //nodeList[id].style.backgroundColor = "red";
                     }else{}
                         var num = stateArray[k].nFinish;
                         writeNum(".numC",num,"<h4 class=numC>","</h4>");                     
