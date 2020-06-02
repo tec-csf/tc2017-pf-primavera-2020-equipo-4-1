@@ -29,9 +29,6 @@ async function putResults()
   const result2 = csvStringState[1];
   writeNum(".reciclados",result2,"<p>","</p>")
 
-  const result3 = csvStringState[2];
-  writeNum(".esp",result3,"<p>","</p>")
-
 }
 
 putResults();

@@ -54,13 +54,8 @@ async function Simulation() {
     await readTextFile();
     console.log(csvStringState[0])
     const stateArrayInit=await csv(csvConfig).fromString(csvStringState[0]);
-    console.log("stateArrayInit " + stateArrayInit.length);
-    for (let index = 0; index < stateArrayInit.length; index++) {
-        if (stateArrayInit[index].nProces != 0) {
-            cont++;
-        }     
-    }
-    var nProces = cont + 1;
+    console.log("stateArrayInit " + stateArrayInit[0].procesT);
+    var nProces = stateArrayInit[0].procesT;
     console.log("nProces " + nProces);
     createPro(nProces);
     createMat(100);

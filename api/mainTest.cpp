@@ -164,6 +164,16 @@ void imprimirMatrices(vector<int> vec, bool hold, int nPro, int status, int proT
 		
 }
 
+void imprimirResultados(int nFinish, int nFail)
+{
+		fout.open("./../frontend/elements/sility/resultados.txt", ios::out); 
+		
+				fout << nFinish <<","<<nFail;
+		
+		fout.close();
+		
+}
+
 bool emparejar()
 {
     bool flag = true;
@@ -221,7 +231,7 @@ int main(int argc, char *argv[])
 	
 	fout.close();
 
-	// fout2.close();
+	fout2.close();
 	
 	//Crear los hilos
 	for (i = 0; i < NP; ++i)
@@ -343,7 +353,7 @@ void * consumidor(void * arg)
 			pthread_cond_wait(&consume, &mutex);
 			printf("-------------- Consumidor %d se despertó ------------\n", id);
 		}
-		
+		imprimirResultados(nFinish,nFail);
 		pthread_mutex_unlock(&mutex);
 	}
 	
