@@ -137,6 +137,8 @@ async function Simulation() {
                         await resolveAfter1Seconds();
                         writeNum(".sign","","<div class = sign>","</div>");
                         //nodeList[id].style.backgroundColor = "red";
+                        fail = true;
+                        ++countF; 
                     }else{}
                         var num = stateArray[k].nFinish;
                         writeNum(".numC",num,"<h4 class=numC>","</h4>");                     
