@@ -131,11 +131,14 @@ Para poder desplegar nuestra página, aprovechamos la funcionalidad de PHP para 
 2) Bajar dependencias para compilar y usar diferentes lenguajes de programación (PHP y GCC)
 
 3) Poner en la máquina virtual:
-```php
+```
 php -S "ip interna":"puerto a preferencia"
 ```
 
-4) Poner en el url "ip externa":"puerto a preferencia"
+4) Poner en el url:
+```
+"ip externa":"puerto a preferencia"
+```
 
 *NOTA: por seguridad, G-cloud no deja usar la ip externa, por lo que en la sección de redes se debe de crear una preferencia para acceder al localhost de la máquina virtual*
 
